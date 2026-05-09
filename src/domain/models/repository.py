@@ -1,13 +1,14 @@
-# src/domain/models/repository.py
-from dataclasses import dataclass
+from sqlmodel import SQLModel, Field
 from typing import Optional
+from datetime import datetime
 
-@dataclass
-class Repository:
-    id: Optional[int] = None
-    owner: str = ""
-    name: str = ""
+class Repository(SQLModel, table=True):
+    __tablename__ = "repositories"
     
-    @property
-    def full_name(self) -> str:
-        return f"{self.owner}/{self.name}"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    owner: str = Field(index=True)
+    name: str = Field(index=True)
+    created_at: datetime = Field(default_factory=datetime.now)
+    
+    class Config:
+        unique_together = ("owner", "name")

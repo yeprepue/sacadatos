@@ -1,20 +1,20 @@
-from dataclasses import dataclass
-from datetime import datetime
+from sqlmodel import SQLModel, Field
 from typing import Optional
+from datetime import datetime
 
-@dataclass
-class Issue:
-    id: int
-    repo_id: int
+class Issue(SQLModel, table=True):
+    __tablename__ = "issues"
+    
+    id: int = Field(primary_key=True)
+    repo_id: int = Field(foreign_key="repositories.id", index=True)
     number: int
     title: str
-    state: str
+    state: str = Field(index=True)
     created_at: datetime
     updated_at: Optional[datetime] = None
     closed_at: Optional[datetime] = None
     user_login: Optional[str] = None
-    extraction_date: datetime = None
+    extraction_date: datetime = Field(default_factory=datetime.now)
     
-    def __post_init__(self):
-        if self.extraction_date is None:
-            self.extraction_date = datetime.now()
+    class Config:
+        arbitrary_types_allowed = True
