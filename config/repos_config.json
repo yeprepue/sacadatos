@@ -1,0 +1,19 @@
+{
+    "repositories": [
+        {
+            "owner": "pandas-dev",
+            "name": "pandas"
+        },
+        {
+            "owner": "microsoft",
+            "name": "vscode"
+        },
+        {
+            "owner": "TU_USUARIO",
+            "name": "repo_privado_prueba"
+        }
+    ],
+    "github_token": "YOUR_GITHUB_TOKEN",
+    "google_credentials": "path/to/credentials.json",
+    "last_extraction": "2024-01-01T00:00:00Z"
+}
