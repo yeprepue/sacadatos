@@ -524,6 +524,14 @@
         "documentation": {}
     },
     {
+        "label": "Column",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
         "label": "SQLModel",
         "importPath": "sqlmodel",
         "description": "sqlmodel",
@@ -533,6 +541,14 @@
     },
     {
         "label": "Field",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
         "importPath": "sqlmodel",
         "description": "sqlmodel",
         "isExtraImport": true,
@@ -617,6 +633,54 @@
         "description": "sqlmodel",
         "isExtraImport": true,
         "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "BigInteger",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "BigInteger",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "BigInteger",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
@@ -862,6 +926,14 @@
         "documentation": {}
     },
     {
+        "label": "DriveAdapter",
+        "importPath": "src.infrastructure.adapters.drive_adapter",
+        "description": "src.infrastructure.adapters.drive_adapter",
+        "isExtraImport": true,
+        "detail": "src.infrastructure.adapters.drive_adapter",
+        "documentation": {}
+    },
+    {
         "label": "ExtractGitHubDataUseCase",
         "importPath": "src.application.use_cases.extract_github_data",
         "description": "src.application.use_cases.extract_github_data",
@@ -928,7 +1000,7 @@
         "kind": 6,
         "importPath": "src.config.settings",
         "description": "src.config.settings",
-        "peekOfCode": "class GitHubConfig:\n    token: str = os.getenv(\"GITHUB_TOKEN\", \"\")\n@dataclass\nclass GoogleDriveConfig:\n    credentials_path: Path = Path(os.getenv(\"GOOGLE_CREDENTIALS_PATH\", \"credentials.json\"))\n    folder_id: str = os.getenv(\"GOOGLE_DRIVE_FOLDER_ID\", \"\")\n@dataclass\nclass PipelineConfig:\n    database: DatabaseConfig = field(default_factory=DatabaseConfig)\n    github: GitHubConfig = field(default_factory=GitHubConfig)",
+        "peekOfCode": "class GitHubConfig:\n    token: str = os.getenv(\"GITHUB_TOKEN\", \"\")\n@dataclass\nclass GoogleDriveConfig:\n    credentials_path: Path = Path(os.getenv(\"GOOGLE_CREDENTIALS_PATH\", \"credentials.json\"))\n    folder_id: str = os.getenv(\"GOOGLE_DRIVE_FOLDER_ID\", \"\")\n    config_file_id: str = os.getenv(\"GOOGLE_DRIVE_CONFIG_FILE_ID\", \"\")\n@dataclass\nclass PipelineConfig:\n    database: DatabaseConfig = field(default_factory=DatabaseConfig)",
         "detail": "src.config.settings",
         "documentation": {}
     },
@@ -937,7 +1009,7 @@
         "kind": 6,
         "importPath": "src.config.settings",
         "description": "src.config.settings",
-        "peekOfCode": "class GoogleDriveConfig:\n    credentials_path: Path = Path(os.getenv(\"GOOGLE_CREDENTIALS_PATH\", \"credentials.json\"))\n    folder_id: str = os.getenv(\"GOOGLE_DRIVE_FOLDER_ID\", \"\")\n@dataclass\nclass PipelineConfig:\n    database: DatabaseConfig = field(default_factory=DatabaseConfig)\n    github: GitHubConfig = field(default_factory=GitHubConfig)\n    google_drive: GoogleDriveConfig = field(default_factory=GoogleDriveConfig)\n    repositories: List[RepositoryConfig] = field(default_factory=list)\n    last_extraction: Optional[str] = None",
+        "peekOfCode": "class GoogleDriveConfig:\n    credentials_path: Path = Path(os.getenv(\"GOOGLE_CREDENTIALS_PATH\", \"credentials.json\"))\n    folder_id: str = os.getenv(\"GOOGLE_DRIVE_FOLDER_ID\", \"\")\n    config_file_id: str = os.getenv(\"GOOGLE_DRIVE_CONFIG_FILE_ID\", \"\")\n@dataclass\nclass PipelineConfig:\n    database: DatabaseConfig = field(default_factory=DatabaseConfig)\n    github: GitHubConfig = field(default_factory=GitHubConfig)\n    google_drive: GoogleDriveConfig = field(default_factory=GoogleDriveConfig)\n    repositories: List[RepositoryConfig] = field(default_factory=list)",
         "detail": "src.config.settings",
         "documentation": {}
     },
@@ -955,7 +1027,7 @@
         "kind": 6,
         "importPath": "src.domain.models.commit",
         "description": "src.domain.models.commit",
-        "peekOfCode": "class Commit(SQLModel, table=True):\n    __tablename__ = \"commits\"\n    sha: str = Field(primary_key=True, max_length=40)\n    repo_id: int = Field(foreign_key=\"repositories.id\", index=True)\n    message: str\n    author_login: Optional[str] = None\n    author_date: Optional[datetime] = None\n    extraction_date: datetime = Field(default_factory=datetime.now)\n    class Config:\n        arbitrary_types_allowed = True",
+        "peekOfCode": "class Commit(SQLModel, table=True):\n    __tablename__ = \"commits\"\n    sha: str = Field(primary_key=True, max_length=40)\n    repo_id: int = Field(sa_column=Column(BigInteger, ForeignKey(\"repositories.id\"), index=True))\n    message: str\n    author_login: Optional[str] = None\n    author_date: Optional[datetime] = None\n    extraction_date: datetime = Field(default_factory=datetime.now)\n    class Config:\n        arbitrary_types_allowed = True",
         "detail": "src.domain.models.commit",
         "documentation": {}
     },
@@ -964,7 +1036,7 @@
         "kind": 6,
         "importPath": "src.domain.models.issue",
         "description": "src.domain.models.issue",
-        "peekOfCode": "class Issue(SQLModel, table=True):\n    __tablename__ = \"issues\"\n    id: int = Field(primary_key=True)\n    repo_id: int = Field(foreign_key=\"repositories.id\", index=True)\n    number: int\n    title: str\n    state: str = Field(index=True)\n    created_at: datetime\n    updated_at: Optional[datetime] = None\n    closed_at: Optional[datetime] = None",
+        "peekOfCode": "class Issue(SQLModel, table=True):\n    __tablename__ = \"issues\"\n    id: int = Field(sa_column=Column(BigInteger, primary_key=True))\n    repo_id: int = Field(sa_column=Column(BigInteger, ForeignKey(\"repositories.id\"), index=True))\n    number: int\n    title: str\n    state: str = Field(index=True)\n    created_at: datetime\n    updated_at: Optional[datetime] = None\n    closed_at: Optional[datetime] = None",
         "detail": "src.domain.models.issue",
         "documentation": {}
     },
@@ -973,7 +1045,7 @@
         "kind": 6,
         "importPath": "src.domain.models.repository",
         "description": "src.domain.models.repository",
-        "peekOfCode": "class Repository(SQLModel, table=True):\n    __tablename__ = \"repositories\"\n    id: Optional[int] = Field(default=None, primary_key=True)\n    owner: str = Field(index=True)\n    name: str = Field(index=True)\n    created_at: datetime = Field(default_factory=datetime.now)\n    class Config:\n        unique_together = (\"owner\", \"name\")",
+        "peekOfCode": "class Repository(SQLModel, table=True):\n    __tablename__ = \"repositories\"\n    id: Optional[int] = Field(default=None, sa_column=Column(BigInteger, primary_key=True))\n    owner: str = Field(index=True)\n    name: str = Field(index=True)\n    created_at: datetime = Field(default_factory=datetime.now)\n    class Config:\n        unique_together = (\"owner\", \"name\")",
         "detail": "src.domain.models.repository",
         "documentation": {}
     },
@@ -1118,6 +1190,24 @@
         "importPath": "main",
         "description": "main",
         "peekOfCode": "def load_config_from_file(config_path: str = \"config.json\") -> dict:\n    \"\"\"Cargar configuración desde archivo local\"\"\"\n    if Path(config_path).exists():\n        with open(config_path, 'r') as f:\n            config = json.load(f)\n            logger.info(f\"Configuración cargada desde {config_path}\")\n            return config\n    else:\n        logger.warning(f\"Archivo {config_path} no encontrado, usando configuración por defecto\")\n        return {",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "load_config_from_public_drive",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def load_config_from_public_drive(file_id: str) -> dict:\n    \"\"\"Cargar configuración desde Google Drive público (sin credenciales)\"\"\"\n    try:\n        url = f\"https://drive.google.com/uc?export=download&id={file_id}\"\n        response = requests.get(url, timeout=30)\n        response.raise_for_status()\n        content = response.text\n        # Manejar caso donde Google devuelve HTML con warning de virus\n        if content.startswith(\"<!DOCTYPE\") or \"download_warning\" in content:\n            import re",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "load_config_from_drive",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def load_config_from_drive(config: PipelineConfig) -> dict:\n    \"\"\"Cargar configuración desde Google Drive\"\"\"\n    file_id = config.google_drive.config_file_id\n    if file_id:\n        return load_config_from_public_drive(file_id)\n    try:\n        drive = DriveAdapter(\n            credentials_path=config.google_drive.credentials_path,\n            folder_id=config.google_drive.folder_id\n        )",
         "detail": "main",
         "documentation": {}
     },

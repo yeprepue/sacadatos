@@ -30,23 +30,22 @@ class DriveAdapter(DriveClientPort):
         self.service = build('drive', 'v3', credentials=credentials)
         logger.info(f"Drive adapter initialized. Folder: {folder_id}")
     
-    def download_config(self, filename: str="config.json") -> Dict:
+    def download_config(self, filename: str="config.json", file_id: str=None) -> Dict:
         """Descarga archivo de configuración desde Drive"""
         try:
-            # Buscar archivo
-            results = self.service.files().list(
-                q=f"name = '{filename}' and '{self.folder_id}' in parents",
-                fields="files(id, name)"
-            ).execute()
+            if file_id is None:
+                results = self.service.files().list(
+                    q=f"name = '{filename}' and '{self.folder_id}' in parents",
+                    fields="files(id, name)"
+                ).execute()
+                
+                files = results.get("files", [])
+                
+                if not files:
+                    raise FileNotFoundError(f"File '{filename}' not found in Drive")
+                
+                file_id = files[0]["id"]
             
-            files = results.get("files", [])
-            
-            if not files:
-                raise FileNotFoundError(f"File '{filename}' not found in Drive")
-            
-            file_id = files[0]["id"]
-            
-            # Descargar contenido
             request = self.service.files().get_media(fileId=file_id)
             content = request.execute()
             

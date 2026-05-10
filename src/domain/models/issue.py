@@ -1,12 +1,13 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Column
 from typing import Optional
 from datetime import datetime
+from sqlalchemy import BigInteger, ForeignKey
 
 class Issue(SQLModel, table=True):
     __tablename__ = "issues"
     
-    id: int = Field(primary_key=True)
-    repo_id: int = Field(foreign_key="repositories.id", index=True)
+    id: int = Field(sa_column=Column(BigInteger, primary_key=True))
+    repo_id: int = Field(sa_column=Column(BigInteger, ForeignKey("repositories.id"), index=True))
     number: int
     title: str
     state: str = Field(index=True)

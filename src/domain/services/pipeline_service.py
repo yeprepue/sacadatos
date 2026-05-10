@@ -61,14 +61,14 @@ class PipelineService:
     def _convert_to_commits(self, commits_raw: List[Dict], repo_id: int) -> List[Commit]:
         commits = []
         for c in commits_raw:
-            commit_data = c.get("commit", {})
-            author_data = commit_data.get("author", {})
+            commit_data = c.get("commit", {}) or {}
+            author_data = commit_data.get("author") or {}
             
             commits.append(Commit(
                 sha=c["sha"],
                 repo_id=repo_id,
                 message=commit_data.get("message", ""),
-                author_login=c.get("author", {}).get("login"),
+                author_login=c.get("author", {}).get("login") if c.get("author") else None,
                 author_date=datetime.fromisoformat(author_data.get("date", "").replace("Z", "+00:00")) if author_data.get("date") else None
             ))
         return commits

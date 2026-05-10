@@ -137,3 +137,59 @@
 2026-05-10 13:58:08 | INFO     | __main__:main:64 - Resultado extracción: {'status': 'completed', 'duration_seconds': 175.58088, 'total_repositories': 3, 'successful': 0, 'failed': 3, 'results': [{'repository': 'yeprepue/sacadatos', 'error': "'NoneType' object has no attribute 'get'", 'status': 'failed'}, {'repository': 'pandas-dev/pandas', 'error': "This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)\n(psycopg2.errors.NumericValueOutOfRange) entero fuera de rango\n\n[SQL: INSERT INTO issues (id, repo_id, number, title, state, created_at, updated_at, closed_at, user_login, extraction_date) VALUES (%(id)s, %(repo_id)s, %(number)s, %(title)s, %(state)s, %(created_at)s, %(updated_at)s, %(closed_at)s, %(user_login)s, %(extraction_date)s)]\n[parameters: {'id': 4416369813, 'repo_id': 1, 'number': 65575, 'title': 'Dataset sharing: Financial Data Bundle (3,518 real records)', 'state': 'closed', 'created_at': datetime.datetime(2026, 5, 10, 17, 52, 26, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2026, 5, 10, 18, 21, 36, tzinfo=datetime.timezone.utc), 'closed_at': datetime.datetime(2026, 5, 10, 18, 21, 36, tzinfo=datetime.timezone.utc), 'user_login': 'matisaar', 'extraction_date': datetime.datetime(2026, 5, 10, 13, 56, 32, 390295)}]\n(Background on this error at: https://sqlalche.me/e/20/9h9h) (Background on this error at: https://sqlalche.me/e/20/7s2a)", 'status': 'failed'}, {'repository': 'microsoft/vscode', 'error': "This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)\n(psycopg2.errors.NumericValueOutOfRange) entero fuera de rango\n\n[SQL: INSERT INTO issues (id, repo_id, number, title, state, created_at, updated_at, closed_at, user_login, extraction_date) VALUES (%(id)s, %(repo_id)s, %(number)s, %(title)s, %(state)s, %(created_at)s, %(updated_at)s, %(closed_at)s, %(user_login)s, %(extraction_date)s)]\n[parameters: {'id': 4416512917, 'repo_id': 2, 'number': 315560, 'title': 'FUCK VS CODE!', 'state': 'open', 'created_at': datetime.datetime(2026, 5, 10, 18, 53, 9, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2026, 5, 10, 18, 53, 9, tzinfo=datetime.timezone.utc), 'closed_at': None, 'user_login': 'UnitedStatesPerformanceCenter', 'extraction_date': datetime.datetime(2026, 5, 10, 13, 58, 0, 561200)}]\n(Background on this error at: https://sqlalche.me/e/20/9h9h) (Background on this error at: https://sqlalche.me/e/20/7s2a)", 'status': 'failed'}]}
 2026-05-10 13:58:08 | INFO     | __main__:main:65 - Pipeline completado exitosamente!
 2026-05-10 13:58:08 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 15:23:50 | INFO     | __main__:main:50 - ==================================================
+2026-05-10 15:23:50 | INFO     | __main__:main:51 - Iniciando GitHub Data Pipeline
+2026-05-10 15:23:50 | INFO     | __main__:main:52 - ==================================================
+2026-05-10 15:23:51 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 15:23:51 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 15:23:51 | INFO     | __main__:main:64 - Cargando configuración desde Google Drive...
+2026-05-10 15:23:51 | ERROR    | __main__:load_config_from_drive:45 - Failed to load config from Drive: [Errno 2] No such file or directory: 'credentials.json'
+2026-05-10 15:23:51 | WARNING  | __main__:main:68 - Fallo al cargar desde Drive, intentando archivo local...
+2026-05-10 15:23:51 | WARNING  | __main__:load_config_from_file:26 - Archivo config.json no encontrado, usando configuración por defecto
+2026-05-10 15:23:51 | INFO     | __main__:main:87 - Tipo de extracción: full
+2026-05-10 15:23:51 | INFO     | __main__:main:88 - Repositorios a procesar: 2
+2026-05-10 15:23:51 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 2 repositorios
+2026-05-10 15:23:51 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 15:25:06 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 15:32:00 | INFO     | __main__:main:51 - ==================================================
+2026-05-10 15:32:00 | INFO     | __main__:main:52 - Iniciando GitHub Data Pipeline
+2026-05-10 15:32:00 | INFO     | __main__:main:53 - ==================================================
+2026-05-10 15:32:01 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 15:32:01 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 15:32:01 | INFO     | __main__:main:65 - Cargando configuración desde Google Drive...
+2026-05-10 15:32:01 | ERROR    | __main__:load_config_from_drive:46 - Failed to load config from Drive: [Errno 2] No such file or directory: 'credentials.json'
+2026-05-10 15:32:01 | WARNING  | __main__:main:69 - Fallo al cargar desde Drive, intentando archivo local...
+2026-05-10 15:32:01 | WARNING  | __main__:load_config_from_file:26 - Archivo config.json no encontrado, usando configuración por defecto
+2026-05-10 15:32:01 | INFO     | __main__:main:88 - Tipo de extracción: full
+2026-05-10 15:32:01 | INFO     | __main__:main:89 - Repositorios a procesar: 2
+2026-05-10 15:32:01 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 2 repositorios
+2026-05-10 15:32:01 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 15:33:16 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 15:36:07 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 15:36:11 | INFO     | __main__:main:82 - ==================================================
+2026-05-10 15:36:11 | INFO     | __main__:main:83 - Iniciando GitHub Data Pipeline
+2026-05-10 15:36:11 | INFO     | __main__:main:84 - ==================================================
+2026-05-10 15:36:11 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 15:36:11 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 15:36:11 | INFO     | __main__:main:96 - Cargando configuración desde Google Drive...
+2026-05-10 15:36:12 | INFO     | __main__:load_config_from_public_drive:56 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 15:36:12 | INFO     | __main__:main:119 - Tipo de extracción: full
+2026-05-10 15:36:12 | INFO     | __main__:main:120 - Repositorios a procesar: 3
+2026-05-10 15:36:12 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 3 repositorios
+2026-05-10 15:36:12 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 15:36:14 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 15 commits
+2026-05-10 15:36:14 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 15:37:29 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 15:38:14 | INFO     | __main__:main:82 - ==================================================
+2026-05-10 15:38:14 | INFO     | __main__:main:83 - Iniciando GitHub Data Pipeline
+2026-05-10 15:38:14 | INFO     | __main__:main:84 - ==================================================
+2026-05-10 15:38:14 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 15:38:14 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 15:38:14 | INFO     | __main__:main:96 - Cargando configuración desde Google Drive...
+2026-05-10 15:38:15 | INFO     | __main__:load_config_from_public_drive:56 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 15:38:15 | INFO     | __main__:main:119 - Tipo de extracción: full
+2026-05-10 15:38:15 | INFO     | __main__:main:120 - Repositorios a procesar: 3
+2026-05-10 15:38:15 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 3 repositorios
+2026-05-10 15:38:15 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 15:38:16 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 15 commits
+2026-05-10 15:38:16 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas

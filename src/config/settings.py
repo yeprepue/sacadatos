@@ -35,6 +35,7 @@ class GitHubConfig:
 class GoogleDriveConfig:
     credentials_path: Path = Path(os.getenv("GOOGLE_CREDENTIALS_PATH", "credentials.json"))
     folder_id: str = os.getenv("GOOGLE_DRIVE_FOLDER_ID", "")
+    config_file_id: str = os.getenv("GOOGLE_DRIVE_CONFIG_FILE_ID", "")
 
 
 @dataclass
