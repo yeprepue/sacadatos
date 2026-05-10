@@ -2,7 +2,6 @@ from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import datetime
 
-
 class Commit(SQLModel, table=True):
     __tablename__ = "commits"
     

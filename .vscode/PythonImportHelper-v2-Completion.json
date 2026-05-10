@@ -89,6 +89,46 @@
         "documentation": {}
     },
     {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterator",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
         "label": "List",
         "importPath": "typing",
         "description": "typing",
@@ -548,6 +588,54 @@
         "documentation": {}
     },
     {
+        "label": "ABC",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "abstractmethod",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "ABC",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "abstractmethod",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "ABC",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
+        "label": "abstractmethod",
+        "importPath": "abc",
+        "description": "abc",
+        "isExtraImport": true,
+        "detail": "abc",
+        "documentation": {}
+    },
+    {
         "label": "Issue",
         "importPath": "src.domain.models",
         "description": "src.domain.models",
@@ -885,6 +973,33 @@
         "description": "src.domain.models.repository",
         "peekOfCode": "class Repository(SQLModel, table=True):\n    __tablename__ = \"repositories\"\n    id: Optional[int] = Field(default=None, primary_key=True)\n    owner: str = Field(index=True)\n    name: str = Field(index=True)\n    created_at: datetime = Field(default_factory=datetime.now)\n    class Config:\n        unique_together = (\"owner\", \"name\")",
         "detail": "src.domain.models.repository",
+        "documentation": {}
+    },
+    {
+        "label": "DatabasePort",
+        "kind": 6,
+        "importPath": "src.domain.ports.database",
+        "description": "src.domain.ports.database",
+        "peekOfCode": "class DatabasePort(ABC):\n    @abstractmethod\n    def insert_repository(self, owner: str, name: str) -> int:\n        pass\n    @abstractmethod\n    def insert_issues(self, repo_id: int, issues: List) -> int:\n        pass\n    @abstractmethod\n    def insert_commits(self, repo_id: int, commits: List) -> int:\n        pass",
+        "detail": "src.domain.ports.database",
+        "documentation": {}
+    },
+    {
+        "label": "DriveClientPort",
+        "kind": 6,
+        "importPath": "src.domain.ports.drive_client",
+        "description": "src.domain.ports.drive_client",
+        "peekOfCode": "class DriveClientPort(ABC):\n    @abstractmethod\n    def download_config(self, filename: str) -> Dict:\n        pass\n    @abstractmethod\n    def upload_file(self, local_path: str, filename: str, folder_id: str = None):\n        pass",
+        "detail": "src.domain.ports.drive_client",
+        "documentation": {}
+    },
+    {
+        "label": "GitHubClientPort",
+        "kind": 6,
+        "importPath": "src.domain.ports.github_client",
+        "description": "src.domain.ports.github_client",
+        "peekOfCode": "class GitHubClientPort(ABC):\n    @abstractmethod\n    def get_issues(self, owner: str, repo: str, since: str = None) -> Iterator[Dict]:\n        pass\n    @abstractmethod\n    def get_commits(self, owner: str, repo: str, since: str = None) -> Iterator[Dict]:\n        pass",
+        "detail": "src.domain.ports.github_client",
         "documentation": {}
     },
     {
