@@ -30,7 +30,7 @@ class PipelineService:
         commits = self._convert_to_commits(commits_raw, repo_id)
         commits_count = self.db.insert_commits(repo_id, commits)
         
-        logger.success(f"Completado: {owner}/{name} - {issues_count} issues, {commits_count} commits")
+        logger.info(f"Completado: {owner}/{name} - {issues_count} issues, {commits_count} commits")
         
         return {
             "repository": f"{owner}/{name}",

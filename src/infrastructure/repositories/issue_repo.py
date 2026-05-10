@@ -5,7 +5,6 @@ from src.domain.models import Issue as IssueModel
 
 
 class IssueRepository:
-
     def __init__(self, db: Database):
         self.db = db
     
@@ -13,13 +12,25 @@ class IssueRepository:
         if not issues:
             return 0
         
+        inserted = 0
         with self.db.get_session() as session:
             for issue in issues:
                 issue.repo_id = repo_id
-            
-            session.bulk_save_objects(issues, upsert=True)
+                try:
+                    existing = session.get(IssueModel, issue.id)
+                    if existing:
+                        existing.title = issue.title
+                        existing.state = issue.state
+                        existing.updated_at = issue.updated_at
+                        existing.closed_at = issue.closed_at
+                    else:
+                        session.add(issue)
+                    inserted += 1
+                except Exception as e:
+                    print(f"Error inserting issue {issue.id}: {e}")
+                    continue
             session.commit()
-            return len(issues)
+            return inserted
     
     def count_by_repo(self, repo_id: int) -> dict:
         with self.db.get_session() as session:

@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 from pathlib import Path
 from datetime import datetime
 
@@ -9,16 +10,26 @@ from src.config.settings import PipelineConfig
 from src.infrastructure.database import Database
 from src.infrastructure.adapters.github_adapter import GitHubAdapter
 from src.infrastructure.adapters.database_adapter import DatabaseAdapter
-from src.infrastructure.adapters.drive_adapter import DriveAdapter
 from src.application.use_cases.extract_github_data import ExtractGitHubDataUseCase
-from src.application.use_cases.generate_report import GenerateReportUseCase
 from src.config.logging_config import logger
 
 
-def load_config_from_drive(drive_adapter):
-    config = drive_adapter.download_config("config.json")
-    logger.info("Configuración cargada desde Drive")
-    return config
+def load_config_from_file(config_path: str = "config.json") -> dict:
+    """Cargar configuración desde archivo local"""
+    if Path(config_path).exists():
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+            logger.info(f"Configuración cargada desde {config_path}")
+            return config
+    else:
+        logger.warning(f"Archivo {config_path} no encontrado, usando configuración por defecto")
+        return {
+            "repositories": [
+                {"owner": "pandas-dev", "name": "pandas"},
+                {"owner": "microsoft", "name": "vscode"}
+            ],
+            "last_extraction": None
+        }
 
 
 def main():
@@ -33,35 +44,25 @@ def main():
     github = GitHubAdapter(config.github.token)
     db = Database(config.database.connection_string)
     db_adapter = DatabaseAdapter(db)
-    drive = DriveAdapter(
-        credentials_path=config.google_drive.credentials_path,
-        folder_id=config.google_drive.folder_id
-    )
     
     try:
-        # Cargar repositorios desde Drive
-        drive_config = load_config_from_drive(drive)
-        repositories = drive_config.get("repositories", [])
+        # Cargar repositorios desde archivo local
+        pipeline_config = load_config_from_file("config.json")
+        repositories = pipeline_config.get("repositories", [])
         
         # Determinar tipo de extracción
         extraction_type = sys.argv[1] if len(sys.argv) > 1 else "full"
-        since = drive_config.get("last_extraction") if extraction_type == "incremental" else None
+        since = pipeline_config.get("last_extraction") if extraction_type == "incremental" else None
         
         logger.info(f"Tipo de extracción: {extraction_type}")
+        logger.info(f"Repositorios a procesar: {len(repositories)}")
         
         # Ejecutar extracción
         extract_use_case = ExtractGitHubDataUseCase(github, db_adapter)
         extraction_result = extract_use_case.execute(repositories, since)
         
         logger.info(f"Resultado extracción: {extraction_result}")
-        
-        # Generar reporte
-        report_use_case = GenerateReportUseCase(db_adapter, drive)
-        report_result = report_use_case.execute()
-        
-        logger.info(f"Resultado reporte: {report_result}")
-        
-        logger.success("Pipeline completado exitosamente!")
+        logger.info("Pipeline completado exitosamente!")
         return 0
         
     except Exception as e:

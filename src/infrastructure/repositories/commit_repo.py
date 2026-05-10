@@ -15,8 +15,12 @@ class CommitRepository:
         with self.db.get_session() as session:
             for commit in commits:
                 commit.repo_id = repo_id
-            
-            session.bulk_save_objects(commits, upsert=True)
+                existing = session.get(CommitModel, commit.sha)
+                if existing:
+                    existing.message = commit.message
+                    existing.author_login = commit.author_login
+                else:
+                    session.add(commit)
             session.commit()
             return len(commits)
     
