@@ -1,0 +1,49 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: github_pipeline_postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: github_data
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow -d github_data"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  extractor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: github-extractor:latest
+    container_name: github_extractor
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: github_data
+      GOOGLE_CREDENTIALS_PATH: /app/credentials.json
+      GOOGLE_DRIVE_FOLDER_ID: ${GOOGLE_DRIVE_FOLDER_ID}
+      LOG_LEVEL: INFO
+    volumes:
+      - ./credentials.json:/app/credentials.json:ro
+      - ./logs:/app/logs
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
