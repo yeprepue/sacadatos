@@ -1,5 +1,3 @@
-# src/config/logging_config.py
-"""Configuración de logging con Loguru"""
 from loguru import logger
 import sys
 import os

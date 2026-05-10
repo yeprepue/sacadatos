@@ -1,22 +1,21 @@
 # src/domain/services/pipeline_service.py
 """Servicio de dominio - Lógica de negocio"""
-
 from typing import List, Dict
 from datetime import datetime
 from src.domain.ports.github_client import GitHubClientPort
 from src.domain.ports.database import DatabasePort
-from src.domain.models import Repository, Issue, Commit
+from src.domain.models import Issue, Commit
+from src.config.logging_config import logger
 
 
 class PipelineService:
-    """Servicio que orquesta la extracción de datos"""
-    
+
     def __init__(self, github_client: GitHubClientPort, database: DatabasePort):
         self.github = github_client
         self.db = database
     
     def process_repository(self, owner: str, name: str, since: str=None) -> Dict:
-        """Procesa un repositorio completo"""
+        logger.info(f"Procesando repositorio: {owner}/{name}")
         
         # 1. Insertar/actualizar repositorio
         repo_id = self.db.insert_repository(owner, name)
@@ -31,6 +30,8 @@ class PipelineService:
         commits = self._convert_to_commits(commits_raw, repo_id)
         commits_count = self.db.insert_commits(repo_id, commits)
         
+        logger.success(f"Completado: {owner}/{name} - {issues_count} issues, {commits_count} commits")
+        
         return {
             "repository": f"{owner}/{name}",
             "issues_count": issues_count,
@@ -39,10 +40,9 @@ class PipelineService:
         }
     
     def _convert_to_issues(self, issues_raw: List[Dict], repo_id: int) -> List[Issue]:
-        """Convierte JSON de GitHub a objetos Issue"""
         issues = []
         for i in issues_raw:
-            if "pull_request" in i:  # Excluir PRs
+            if "pull_request" in i:
                 continue
             
             issues.append(Issue(
@@ -59,7 +59,6 @@ class PipelineService:
         return issues
     
     def _convert_to_commits(self, commits_raw: List[Dict], repo_id: int) -> List[Commit]:
-        """Convierte JSON de GitHub a objetos Commit"""
         commits = []
         for c in commits_raw:
             commit_data = c.get("commit", {})

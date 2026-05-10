@@ -1,6 +1,3 @@
-# src/application/use_cases/generate_report.py
-"""Caso de uso: Generar y subir reporte"""
-
 import logging
 import pandas as pd
 from typing import Dict

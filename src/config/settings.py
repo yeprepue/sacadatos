@@ -1,5 +1,3 @@
-# src/config/settings.py
-"""Configuración centralizada del pipeline"""
 import os
 from pathlib import Path
 from typing import List, Optional

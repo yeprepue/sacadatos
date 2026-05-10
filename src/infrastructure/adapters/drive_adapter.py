@@ -1,6 +1,3 @@
-# src/infrastructure/adapters/drive_adapter.py
-"""Adaptador de Google Drive - Implementación del puerto"""
-
 import json
 import logging
 from pathlib import Path

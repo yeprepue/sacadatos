@@ -1,5 +1,3 @@
-# src/domain/models/commit.py
-"""Modelo de dominio - Commit"""
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import datetime
