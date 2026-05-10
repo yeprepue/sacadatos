@@ -1,32 +1,17 @@
 import logging
 from typing import List, Dict
 from datetime import datetime
-
 from src.domain.ports.github_client import GitHubClientPort
 from src.domain.ports.database import DatabasePort
 from src.domain.services.pipeline_service import PipelineService
-
-logger = logging.getLogger(__name__)
-
+from src.config.logging_config import logger
 
 class ExtractGitHubDataUseCase:
-    """Caso de uso para extraer datos de GitHub"""
-    
     def __init__(self, github_client: GitHubClientPort, database: DatabasePort):
         self.service = PipelineService(github_client, database)
     
     def execute(self, repositories: List[Dict], since: str = None) -> Dict:
-        """
-        Ejecuta la extracción de datos para múltiples repositorios
-        
-        Args:
-            repositories: Lista de diccionarios con 'owner' y 'name'
-            since: Fecha para extracción incremental (ISO 8601)
-        
-        Returns:
-            Dict con resultados de la extracción
-        """
-        logger.info(f"Starting extraction for {len(repositories)} repositories")
+        logger.info(f"Iniciando extracción para {len(repositories)} repositorios")
         start_time = datetime.now()
         
         results = []
@@ -36,16 +21,14 @@ class ExtractGitHubDataUseCase:
             name = repo.get("name")
             
             if not owner or not name:
-                logger.warning(f"Invalid repository config: {repo}")
+                logger.warning(f"Configuración inválida: {repo}")
                 continue
             
             try:
                 result = self.service.process_repository(owner, name, since)
                 results.append(result)
-                logger.info(f"Processed: {owner}/{name}")
-                
             except Exception as e:
-                logger.error(f"Failed to process {owner}/{name}: {e}")
+                logger.error(f"Error procesando {owner}/{name}: {e}")
                 results.append({
                     "repository": f"{owner}/{name}",
                     "error": str(e),

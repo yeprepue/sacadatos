@@ -1,72 +1,87 @@
-import requests
-from typing import Iterator, Dict
-from src.domain.ports.github_client import GitHubClientPort
+import json
+from pathlib import Path
+from typing import Dict
+from io import BytesIO
+
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseUpload
+
+from src.domain.ports.drive_client import DriveClientPort
 from src.config.logging_config import logger
 
 
-class GitHubAPIError(Exception):
-    pass
-
-
-class GitHubAdapter(GitHubClientPort):
-    BASE_URL = "https://api.github.com"
-    MAX_PER_PAGE = 100
+class DriveAdapter(DriveClientPort):
+    def __init__(self, credentials_path: Path, folder_id: str):
+        self.credentials_path = credentials_path
+        self.folder_id = folder_id
+        
+        credentials = service_account.Credentials.from_service_account_file(
+            str(credentials_path),
+            scopes=[
+                'https://www.googleapis.com/auth/drive.readonly',
+                'https://www.googleapis.com/auth/drive.file'
+            ]
+        )
+        self.service = build('drive', 'v3', credentials=credentials)
+        logger.info(f"Drive adapter initialized. Folder: {folder_id}")
     
-    def __init__(self, token: str):
-        self.token = token
-        self.session = requests.Session()
-        self.session.headers.update({
-            "Authorization": f"token {token}",
-            "Accept": "application/vnd.github.v3+json",
-            "X-GitHub-Api-Version": "2022-11-28"
-        })
-    
-    def _request(self, endpoint: str, params: dict = None) -> list:
-        url = f"{self.BASE_URL}/{endpoint}"
+    def download_config(self, filename: str = "config.json") -> Dict:
         try:
-            response = self.session.get(url, params=params)
-            if response.status_code == 404:
-                logger.warning(f"Resource not found: {endpoint}")
-                return []
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Request failed: {e}")
-            raise GitHubAPIError(str(e))
+            results = self.service.files().list(
+                q=f"name = '{filename}' and '{self.folder_id}' in parents",
+                fields="files(id, name)"
+            ).execute()
+            
+            files = results.get("files", [])
+            if not files:
+                logger.warning(f"Config file not found, usando defaults")
+                return {
+                    "repositories": [
+                        {"owner": "pandas-dev", "name": "pandas"},
+                        {"owner": "microsoft", "name": "vscode"}
+                    ],
+                    "last_extraction": None
+                }
+            
+            file_id = files[0]["id"]
+            request = self.service.files().get_media(fileId=file_id)
+            content = request.execute()
+            
+            config = json.loads(content.decode('utf-8'))
+            logger.info(f"Config loaded from Drive: {filename}")
+            return config
+            
+        except Exception as e:
+            logger.error(f"Failed to download config: {e}")
+            return {
+                "repositories": [
+                    {"owner": "pandas-dev", "name": "pandas"},
+                    {"owner": "microsoft", "name": "vscode"}
+                ],
+                "last_extraction": None
+            }
     
-    def get_issues(self, owner: str, repo: str, since: str = None) -> Iterator[Dict]:
-        page = 1
-        while True:
-            params = {"state": "all", "per_page": self.MAX_PER_PAGE, "page": page, "sort": "updated", "direction": "desc"}
-            if since:
-                params["since"] = since
-            
-            data = self._request(f"repos/{owner}/{repo}/issues", params)
-            if not data:
-                break
-            
-            yield from [item for item in data if "pull_request" not in item]
-            
-            if len(data) < self.MAX_PER_PAGE:
-                break
-            page += 1
-    
-    def get_commits(self, owner: str, repo: str, since: str = None) -> Iterator[Dict]:
-        page = 1
-        while True:
-            params = {"per_page": self.MAX_PER_PAGE, "page": page}
-            if since:
-                params["since"] = since
-            
-            data = self._request(f"repos/{owner}/{repo}/commits", params)
-            if not data:
-                break
-            
-            yield from data
-            
-            if len(data) < self.MAX_PER_PAGE:
-                break
-            page += 1
-    
-    def close(self):
-        self.session.close()
+    def upload_file(self, local_path: str, filename: str, folder_id: str = None):
+        target_folder = folder_id or self.folder_id
+        
+        results = self.service.files().list(
+            q=f"name = '{filename}' and '{target_folder}' in parents",
+            fields="files(id)"
+        ).execute()
+        
+        existing = results.get("files", [])
+        
+        with open(local_path, 'rb') as f:
+            file_content = f.read()
+        
+        media = MediaIoBaseUpload(BytesIO(file_content), mimetype='text/csv')
+        
+        if existing:
+            file_id = existing[0]['id']
+            self.service.files().update(fileId=file_id, media_body=media).execute()
+            logger.success(f"File updated: {filename}")
+        else:
+            file_metadata = {'name': filename, 'parents': [target_folder]}
+            self.service.files().create(body=file_metadata, media_body=media).execute()
+            logger.success(f"File created: {filename}")

@@ -113,14 +113,6 @@
         "documentation": {}
     },
     {
-        "label": "Iterator",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
         "label": "Dict",
         "importPath": "typing",
         "description": "typing",
@@ -129,11 +121,35 @@
         "documentation": {}
     },
     {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
         "isExtraImport": true,
-        "detail": "datetime",
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Generator",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
         "documentation": {}
     },
     {
@@ -177,11 +193,11 @@
         "documentation": {}
     },
     {
-        "label": "GitHubClientPort",
-        "importPath": "src.domain.ports.github_client",
-        "description": "src.domain.ports.github_client",
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
         "isExtraImport": true,
-        "detail": "src.domain.ports.github_client",
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -241,12 +257,76 @@
         "documentation": {}
     },
     {
+        "label": "logger",
+        "importPath": "src.config.logging_config",
+        "description": "src.config.logging_config",
+        "isExtraImport": true,
+        "detail": "src.config.logging_config",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "src.config.logging_config",
+        "description": "src.config.logging_config",
+        "isExtraImport": true,
+        "detail": "src.config.logging_config",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "src.config.logging_config",
+        "description": "src.config.logging_config",
+        "isExtraImport": true,
+        "detail": "src.config.logging_config",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "src.config.logging_config",
+        "description": "src.config.logging_config",
+        "isExtraImport": true,
+        "detail": "src.config.logging_config",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "src.config.logging_config",
+        "description": "src.config.logging_config",
+        "isExtraImport": true,
+        "detail": "src.config.logging_config",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "src.config.logging_config",
+        "description": "src.config.logging_config",
+        "isExtraImport": true,
+        "detail": "src.config.logging_config",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "src.config.logging_config",
+        "description": "src.config.logging_config",
+        "isExtraImport": true,
+        "detail": "src.config.logging_config",
+        "documentation": {}
+    },
+    {
         "label": "pandas",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "pandas",
         "description": "pandas",
         "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "DriveClientPort",
+        "importPath": "src.domain.ports.drive_client",
+        "description": "src.domain.ports.drive_client",
+        "isExtraImport": true,
+        "detail": "src.domain.ports.drive_client",
         "documentation": {}
     },
     {
@@ -289,6 +369,14 @@
         "importPath": "os",
         "description": "os",
         "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
         "documentation": {}
     },
     {
@@ -396,6 +484,70 @@
         "documentation": {}
     },
     {
+        "label": "select",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "select",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "select",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "SQLModel",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
         "label": "Issue",
         "importPath": "src.domain.models",
         "description": "src.domain.models",
@@ -412,27 +564,59 @@
         "documentation": {}
     },
     {
-        "label": "logger",
-        "importPath": "src.config.logging_config",
-        "description": "src.config.logging_config",
+        "label": "Commit",
+        "importPath": "src.domain.models",
+        "description": "src.domain.models",
         "isExtraImport": true,
-        "detail": "src.config.logging_config",
+        "detail": "src.domain.models",
         "documentation": {}
     },
     {
-        "label": "logger",
-        "importPath": "src.config.logging_config",
-        "description": "src.config.logging_config",
+        "label": "Issue",
+        "importPath": "src.domain.models",
+        "description": "src.domain.models",
         "isExtraImport": true,
-        "detail": "src.config.logging_config",
+        "detail": "src.domain.models",
         "documentation": {}
     },
     {
-        "label": "logger",
-        "importPath": "src.config.logging_config",
-        "description": "src.config.logging_config",
+        "label": "Repository",
+        "importPath": "src.domain.models",
+        "description": "src.domain.models",
         "isExtraImport": true,
-        "detail": "src.config.logging_config",
+        "detail": "src.domain.models",
+        "documentation": {}
+    },
+    {
+        "label": "Database",
+        "importPath": "src.infrastructure.database",
+        "description": "src.infrastructure.database",
+        "isExtraImport": true,
+        "detail": "src.infrastructure.database",
+        "documentation": {}
+    },
+    {
+        "label": "Database",
+        "importPath": "src.infrastructure.database",
+        "description": "src.infrastructure.database",
+        "isExtraImport": true,
+        "detail": "src.infrastructure.database",
+        "documentation": {}
+    },
+    {
+        "label": "Database",
+        "importPath": "src.infrastructure.database",
+        "description": "src.infrastructure.database",
+        "isExtraImport": true,
+        "detail": "src.infrastructure.database",
+        "documentation": {}
+    },
+    {
+        "label": "Database",
+        "importPath": "src.infrastructure.database",
+        "description": "src.infrastructure.database",
+        "isExtraImport": true,
+        "detail": "src.infrastructure.database",
         "documentation": {}
     },
     {
@@ -485,11 +669,35 @@
         "documentation": {}
     },
     {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
         "label": "service_account",
         "importPath": "google.oauth2",
         "description": "google.oauth2",
         "isExtraImport": true,
         "detail": "google.oauth2",
+        "documentation": {}
+    },
+    {
+        "label": "service_account",
+        "importPath": "google.oauth2",
+        "description": "google.oauth2",
+        "isExtraImport": true,
+        "detail": "google.oauth2",
+        "documentation": {}
+    },
+    {
+        "label": "build",
+        "importPath": "googleapiclient.discovery",
+        "description": "googleapiclient.discovery",
+        "isExtraImport": true,
+        "detail": "googleapiclient.discovery",
         "documentation": {}
     },
     {
@@ -509,12 +717,27 @@
         "documentation": {}
     },
     {
-        "label": "requests",
-        "kind": 6,
+        "label": "MediaIoBaseUpload",
+        "importPath": "googleapiclient.http",
+        "description": "googleapiclient.http",
         "isExtraImport": true,
-        "importPath": "requests",
-        "description": "requests",
-        "detail": "requests",
+        "detail": "googleapiclient.http",
+        "documentation": {}
+    },
+    {
+        "label": "contextmanager",
+        "importPath": "contextlib",
+        "description": "contextlib",
+        "isExtraImport": true,
+        "detail": "contextlib",
+        "documentation": {}
+    },
+    {
+        "label": "DatabaseConfig",
+        "importPath": "src.config.settings",
+        "description": "src.config.settings",
+        "isExtraImport": true,
+        "detail": "src.config.settings",
         "documentation": {}
     },
     {
@@ -570,16 +793,7 @@
         "kind": 6,
         "importPath": "src.application.use_cases.extract_github_data",
         "description": "src.application.use_cases.extract_github_data",
-        "peekOfCode": "class ExtractGitHubDataUseCase:\n    \"\"\"Caso de uso para extraer datos de GitHub\"\"\"\n    def __init__(self, github_client: GitHubClientPort, database: DatabasePort):\n        self.service = PipelineService(github_client, database)\n    def execute(self, repositories: List[Dict], since: str = None) -> Dict:\n        \"\"\"\n        Ejecuta la extracción de datos para múltiples repositorios\n        Args:\n            repositories: Lista de diccionarios con 'owner' y 'name'\n            since: Fecha para extracción incremental (ISO 8601)",
-        "detail": "src.application.use_cases.extract_github_data",
-        "documentation": {}
-    },
-    {
-        "label": "logger",
-        "kind": 5,
-        "importPath": "src.application.use_cases.extract_github_data",
-        "description": "src.application.use_cases.extract_github_data",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nclass ExtractGitHubDataUseCase:\n    \"\"\"Caso de uso para extraer datos de GitHub\"\"\"\n    def __init__(self, github_client: GitHubClientPort, database: DatabasePort):\n        self.service = PipelineService(github_client, database)\n    def execute(self, repositories: List[Dict], since: str = None) -> Dict:\n        \"\"\"\n        Ejecuta la extracción de datos para múltiples repositorios\n        Args:\n            repositories: Lista de diccionarios con 'owner' y 'name'",
+        "peekOfCode": "class ExtractGitHubDataUseCase:\n    def __init__(self, github_client: GitHubClientPort, database: DatabasePort):\n        self.service = PipelineService(github_client, database)\n    def execute(self, repositories: List[Dict], since: str = None) -> Dict:\n        logger.info(f\"Iniciando extracción para {len(repositories)} repositorios\")\n        start_time = datetime.now()\n        results = []\n        for repo in repositories:\n            owner = repo.get(\"owner\")\n            name = repo.get(\"name\")",
         "detail": "src.application.use_cases.extract_github_data",
         "documentation": {}
     },
@@ -588,16 +802,7 @@
         "kind": 6,
         "importPath": "src.application.use_cases.generate_report",
         "description": "src.application.use_cases.generate_report",
-        "peekOfCode": "class GenerateReportUseCase:\n    \"\"\"Caso de uso para generar reporte CSV\"\"\"\n    def __init__(self, database: DatabasePort, drive_client: DriveClientPort):\n        self.db = database\n        self.drive = drive_client\n    def execute(self, local_path: str=\"/tmp/reporte_github.csv\") -> Dict:\n        \"\"\"Genera reporte y lo sube a Drive\"\"\"\n        # 1. Obtener datos resumidos\n        summary = self.db.get_summary()\n        if not summary:",
-        "detail": "src.application.use_cases.generate_report",
-        "documentation": {}
-    },
-    {
-        "label": "logger",
-        "kind": 5,
-        "importPath": "src.application.use_cases.generate_report",
-        "description": "src.application.use_cases.generate_report",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nclass GenerateReportUseCase:\n    \"\"\"Caso de uso para generar reporte CSV\"\"\"\n    def __init__(self, database: DatabasePort, drive_client: DriveClientPort):\n        self.db = database\n        self.drive = drive_client\n    def execute(self, local_path: str=\"/tmp/reporte_github.csv\") -> Dict:\n        \"\"\"Genera reporte y lo sube a Drive\"\"\"\n        # 1. Obtener datos resumidos\n        summary = self.db.get_summary()",
+        "peekOfCode": "class GenerateReportUseCase:\n    def __init__(self, database: DatabasePort, drive_client: DriveClientPort):\n        self.db = database\n        self.drive = drive_client\n    def execute(self, local_path: str = \"/tmp/reporte_github.csv\") -> Dict:\n        summary = self.db.get_summary()\n        if not summary:\n            logger.warning(\"No hay datos para reportar\")\n            return {\"status\": \"no_data\"}\n        df = pd.DataFrame(summary)",
         "detail": "src.application.use_cases.generate_report",
         "documentation": {}
     },
@@ -719,21 +924,48 @@
         "documentation": {}
     },
     {
-        "label": "GitHubAPIError",
+        "label": "DriveAdapter",
         "kind": 6,
         "importPath": "src.infrastructure.adapters.github_adapter",
         "description": "src.infrastructure.adapters.github_adapter",
-        "peekOfCode": "class GitHubAPIError(Exception):\n    pass\nclass GitHubAdapter(GitHubClientPort):\n    BASE_URL = \"https://api.github.com\"\n    MAX_PER_PAGE = 100\n    def __init__(self, token: str):\n        self.token = token\n        self.session = requests.Session()\n        self.session.headers.update({\n            \"Authorization\": f\"token {token}\",",
+        "peekOfCode": "class DriveAdapter(DriveClientPort):\n    def __init__(self, credentials_path: Path, folder_id: str):\n        self.credentials_path = credentials_path\n        self.folder_id = folder_id\n        credentials = service_account.Credentials.from_service_account_file(\n            str(credentials_path),\n            scopes=[\n                'https://www.googleapis.com/auth/drive.readonly',\n                'https://www.googleapis.com/auth/drive.file'\n            ]",
         "detail": "src.infrastructure.adapters.github_adapter",
         "documentation": {}
     },
     {
-        "label": "GitHubAdapter",
+        "label": "CommitRepository",
         "kind": 6,
-        "importPath": "src.infrastructure.adapters.github_adapter",
-        "description": "src.infrastructure.adapters.github_adapter",
-        "peekOfCode": "class GitHubAdapter(GitHubClientPort):\n    BASE_URL = \"https://api.github.com\"\n    MAX_PER_PAGE = 100\n    def __init__(self, token: str):\n        self.token = token\n        self.session = requests.Session()\n        self.session.headers.update({\n            \"Authorization\": f\"token {token}\",\n            \"Accept\": \"application/vnd.github.v3+json\",\n            \"X-GitHub-Api-Version\": \"2022-11-28\"",
-        "detail": "src.infrastructure.adapters.github_adapter",
+        "importPath": "src.infrastructure.repositories.commit_repo",
+        "description": "src.infrastructure.repositories.commit_repo",
+        "peekOfCode": "class CommitRepository:\n    def __init__(self, db: Database):\n        self.db = db\n    def bulk_insert(self, repo_id: int, commits: List[CommitModel]) -> int:\n        if not commits:\n            return 0\n        with self.db.get_session() as session:\n            for commit in commits:\n                commit.repo_id = repo_id\n            session.bulk_save_objects(commits, upsert=True)",
+        "detail": "src.infrastructure.repositories.commit_repo",
+        "documentation": {}
+    },
+    {
+        "label": "IssueRepository",
+        "kind": 6,
+        "importPath": "src.infrastructure.repositories.issue_repo",
+        "description": "src.infrastructure.repositories.issue_repo",
+        "peekOfCode": "class IssueRepository:\n    def __init__(self, db: Database):\n        self.db = db\n    def bulk_insert(self, repo_id: int, issues: List[IssueModel]) -> int:\n        if not issues:\n            return 0\n        with self.db.get_session() as session:\n            for issue in issues:\n                issue.repo_id = repo_id\n            session.bulk_save_objects(issues, upsert=True)",
+        "detail": "src.infrastructure.repositories.issue_repo",
+        "documentation": {}
+    },
+    {
+        "label": "RepositoryRepository",
+        "kind": 6,
+        "importPath": "src.infrastructure.repositories.repository_repo",
+        "description": "src.infrastructure.repositories.repository_repo",
+        "peekOfCode": "class RepositoryRepository:\n    def __init__(self, db: Database):\n        self.db = db\n    def upsert(self, owner: str, name: str) -> int:\n        with self.db.get_session() as session:\n            repo = session.exec(\n                select(RepositoryModel).where(\n                    RepositoryModel.owner == owner,\n                    RepositoryModel.name == name\n                )",
+        "detail": "src.infrastructure.repositories.repository_repo",
+        "documentation": {}
+    },
+    {
+        "label": "Database",
+        "kind": 6,
+        "importPath": "src.infrastructure.database",
+        "description": "src.infrastructure.database",
+        "peekOfCode": "class Database:\n    def __init__(self, connection_string: str):\n        self.connection_string = connection_string\n        self.engine = create_engine(connection_string, echo=False)\n        self._create_tables()\n        logger.info(f\"Database connected: {connection_string}\")\n    def _create_tables(self):\n        \"\"\"Crea las tablas automáticamente\"\"\"\n        from src.domain.models import Repository, Issue, Commit\n        SQLModel.metadata.create_all(self.engine)",
+        "detail": "src.infrastructure.database",
         "documentation": {}
     },
     {
@@ -741,7 +973,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def load_config_from_drive(drive_adapter: DriveAdapter) -> dict:\n    \"\"\"Carga configuración desde Drive\"\"\"\n    try:\n        config = drive_adapter.download_config(\"config.json\")\n        logger.info(\"Configuration loaded from Drive\")\n        return config\n    except FileNotFoundError:\n        logger.warning(\"Config file not in Drive, using default\")\n        return {\n            \"repositories\": [",
+        "peekOfCode": "def load_config_from_drive(drive_adapter):\n    config = drive_adapter.download_config(\"config.json\")\n    logger.info(\"Configuración cargada desde Drive\")\n    return config\ndef main():\n    logger.info(\"=\" * 50)\n    logger.info(\"Iniciando GitHub Data Pipeline\")\n    logger.info(\"=\" * 50)\n    # Cargar configuración\n    config = PipelineConfig()",
         "detail": "main",
         "documentation": {}
     },
@@ -750,16 +982,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    \"\"\"Función principal\"\"\"\n    # Cargar configuración\n    config = PipelineConfig()\n    # Inicializar adaptadores\n    github = GitHubAdapter(config.github.token)\n    db = DatabaseAdapter(\n        host=config.database.host,\n        user=config.database.user,\n        password=config.database.password,",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "logger",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "logger = logging.getLogger(__name__)\ndef load_config_from_drive(drive_adapter: DriveAdapter) -> dict:\n    \"\"\"Carga configuración desde Drive\"\"\"\n    try:\n        config = drive_adapter.download_config(\"config.json\")\n        logger.info(\"Configuration loaded from Drive\")\n        return config\n    except FileNotFoundError:\n        logger.warning(\"Config file not in Drive, using default\")\n        return {",
+        "peekOfCode": "def main():\n    logger.info(\"=\" * 50)\n    logger.info(\"Iniciando GitHub Data Pipeline\")\n    logger.info(\"=\" * 50)\n    # Cargar configuración\n    config = PipelineConfig()\n    # Inicializar adaptadores\n    github = GitHubAdapter(config.github.token)\n    db = Database(config.database.connection_string)\n    db_adapter = DatabaseAdapter(db)",
         "detail": "main",
         "documentation": {}
     }
