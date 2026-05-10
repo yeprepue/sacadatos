@@ -17,7 +17,8 @@ class GitHubAdapter(GitHubClientPort):
         self.session = requests.Session()
         self.session.headers.update({
             "Authorization": f"token {token}",
-            "Accept": "application/vnd.github.v3+json"
+            "Accept": "application/vnd.github.v3+json",
+            "X-GitHub-Api-Version": "2022-11-28"
         })
     
     def _request(self, endpoint: str, params: dict = None) -> list:
@@ -26,9 +27,6 @@ class GitHubAdapter(GitHubClientPort):
             response = self.session.get(url, params=params)
             if response.status_code == 404:
                 logger.warning(f"Resource not found: {endpoint}")
-                return []
-            if response.status_code == 422:
-                logger.warning(f"Unprocessable entity: {endpoint}")
                 return []
             response.raise_for_status()
             return response.json()
@@ -39,7 +37,7 @@ class GitHubAdapter(GitHubClientPort):
     def get_issues(self, owner: str, repo: str, since: str = None) -> Iterator[Dict]:
         page = 1
         while True:
-            params = {"state": "all", "per_page": self.MAX_PER_PAGE, "page": page}
+            params = {"state": "all", "per_page": self.MAX_PER_PAGE, "page": page, "sort": "updated", "direction": "desc"}
             if since:
                 params["since"] = since
             
