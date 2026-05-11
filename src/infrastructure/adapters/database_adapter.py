@@ -1,9 +1,11 @@
 from typing import List, Dict
+from sqlmodel import select
 from src.domain.ports.database import DatabasePort
 from src.infrastructure.database import Database
 from src.infrastructure.repositories.repository_repo import RepositoryRepository
 from src.infrastructure.repositories.issue_repo import IssueRepository
 from src.infrastructure.repositories.commit_repo import CommitRepository
+from src.domain.models import Repository as RepositoryModel
 from src.config.logging_config import logger
 
 
@@ -24,22 +26,24 @@ class DatabaseAdapter(DatabasePort):
         return self.commit_repo.bulk_insert(repo_id, commits)
     
     def get_summary(self) -> List[Dict]:
-        repos = self.repo_repo.get_all()
-        summary = []
-        
-        for repo in repos:
-            issues_stats = self.issue_repo.count_by_repo(repo.id)
-            commits_count = self.commit_repo.count_by_repo(repo.id)
+        with self.db.get_session() as session:
+            repos = list(session.exec(select(RepositoryModel)).all())
+            summary = []
             
-            summary.append({
-                "repository": f"{repo.owner}/{repo.name}",
-                "total_issues": issues_stats["total"],
-                "open_issues": issues_stats["open"],
-                "closed_issues": issues_stats["closed"],
-                "total_commits": commits_count
-            })
-        
-        return summary
+            for repo in repos:
+                repo_id = repo.id
+                issues_stats = self.issue_repo.count_by_repo(repo_id)
+                commits_count = self.commit_repo.count_by_repo(repo_id)
+                
+                summary.append({
+                    "repository": f"{repo.owner}/{repo.name}",
+                    "total_issues": issues_stats["total"],
+                    "open_issues": issues_stats["open"],
+                    "closed_issues": issues_stats["closed"],
+                    "total_commits": commits_count
+                })
+            
+            return summary
     
     def close(self):
         self.db.close()

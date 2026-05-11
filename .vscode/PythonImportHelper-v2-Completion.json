@@ -257,14 +257,6 @@
         "documentation": {}
     },
     {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
         "label": "GitHubClientPort",
         "importPath": "src.domain.ports.github_client",
         "description": "src.domain.ports.github_client",
@@ -294,14 +286,6 @@
         "description": "src.domain.ports.github_client",
         "isExtraImport": true,
         "detail": "src.domain.ports.github_client",
-        "documentation": {}
-    },
-    {
-        "label": "DatabasePort",
-        "importPath": "src.domain.ports.database",
-        "description": "src.domain.ports.database",
-        "isExtraImport": true,
-        "detail": "src.domain.ports.database",
         "documentation": {}
     },
     {
@@ -401,6 +385,24 @@
         "documentation": {}
     },
     {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "psycopg2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "psycopg2",
+        "description": "psycopg2",
+        "detail": "psycopg2",
+        "documentation": {}
+    },
+    {
         "label": "pandas",
         "kind": 6,
         "isExtraImport": true,
@@ -410,19 +412,12 @@
         "documentation": {}
     },
     {
-        "label": "DriveClientPort",
-        "importPath": "src.domain.ports.drive_client",
-        "description": "src.domain.ports.drive_client",
+        "label": "os",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "src.domain.ports.drive_client",
-        "documentation": {}
-    },
-    {
-        "label": "DriveClientPort",
-        "importPath": "src.domain.ports.drive_client",
-        "description": "src.domain.ports.drive_client",
-        "isExtraImport": true,
-        "detail": "src.domain.ports.drive_client",
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
         "documentation": {}
     },
     {
@@ -440,15 +435,6 @@
         "importPath": "sys",
         "description": "sys",
         "detail": "sys",
-        "documentation": {}
-    },
-    {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
         "documentation": {}
     },
     {
@@ -565,6 +551,14 @@
     },
     {
         "label": "Field",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "select",
         "importPath": "sqlmodel",
         "description": "sqlmodel",
         "isExtraImport": true,
@@ -748,6 +742,14 @@
         "documentation": {}
     },
     {
+        "label": "Repository",
+        "importPath": "src.domain.models",
+        "description": "src.domain.models",
+        "isExtraImport": true,
+        "detail": "src.domain.models",
+        "documentation": {}
+    },
+    {
         "label": "Commit",
         "importPath": "src.domain.models",
         "description": "src.domain.models",
@@ -877,6 +879,14 @@
         "documentation": {}
     },
     {
+        "label": "DriveClientPort",
+        "importPath": "src.domain.ports.drive_client",
+        "description": "src.domain.ports.drive_client",
+        "isExtraImport": true,
+        "detail": "src.domain.ports.drive_client",
+        "documentation": {}
+    },
+    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
@@ -942,6 +952,14 @@
         "documentation": {}
     },
     {
+        "label": "GenerateReportUseCase",
+        "importPath": "src.application.use_cases.generate_report",
+        "description": "src.application.use_cases.generate_report",
+        "isExtraImport": true,
+        "detail": "src.application.use_cases.generate_report",
+        "documentation": {}
+    },
+    {
         "label": "traceback",
         "kind": 6,
         "isExtraImport": true,
@@ -964,7 +982,25 @@
         "kind": 6,
         "importPath": "src.application.use_cases.generate_report",
         "description": "src.application.use_cases.generate_report",
-        "peekOfCode": "class GenerateReportUseCase:\n    def __init__(self, database: DatabasePort, drive_client: DriveClientPort):\n        self.db = database\n        self.drive = drive_client\n    def execute(self, local_path: str = \"/tmp/reporte_github.csv\") -> Dict:\n        summary = self.db.get_summary()\n        if not summary:\n            logger.warning(\"No hay datos para reportar\")\n            return {\"status\": \"no_data\"}\n        df = pd.DataFrame(summary)",
+        "peekOfCode": "class GenerateReportUseCase:\n    def __init__(self, database=None, drive_client=None):\n        self.db = database\n        self.drive = drive_client\n    def execute(self, local_path: str = \"reporte_github.csv\") -> Dict:\n        return generate_csv_report(local_path)\nif __name__ == \"__main__\":\n    generate_csv_report()",
+        "detail": "src.application.use_cases.generate_report",
+        "documentation": {}
+    },
+    {
+        "label": "clean_string",
+        "kind": 2,
+        "importPath": "src.application.use_cases.generate_report",
+        "description": "src.application.use_cases.generate_report",
+        "peekOfCode": "def clean_string(value):\n    \"\"\"Remove control characters not allowed in CSV\"\"\"\n    if isinstance(value, str):\n        value = re.sub(r'[\\x00-\\x1f\\x7f-\\x9f]', ' ', value)\n        value = value.replace('\\x00', '')\n    return value\ndef generate_csv_report(output_path: str = \"reporte_github.csv\"):\n    conn = psycopg2.connect(\n        host=os.getenv(\"POSTGRES_HOST\", \"localhost\"),\n        port=int(os.getenv(\"POSTGRES_PORT\", \"5432\")),",
+        "detail": "src.application.use_cases.generate_report",
+        "documentation": {}
+    },
+    {
+        "label": "generate_csv_report",
+        "kind": 2,
+        "importPath": "src.application.use_cases.generate_report",
+        "description": "src.application.use_cases.generate_report",
+        "peekOfCode": "def generate_csv_report(output_path: str = \"reporte_github.csv\"):\n    conn = psycopg2.connect(\n        host=os.getenv(\"POSTGRES_HOST\", \"localhost\"),\n        port=int(os.getenv(\"POSTGRES_PORT\", \"5432\")),\n        user=os.getenv(\"POSTGRES_USER\", \"postgres\"),\n        password=os.getenv(\"POSTGRES_PASSWORD\", \"admin\"),\n        database=os.getenv(\"POSTGRES_DB\", \"sacadatos\")\n    )\n    try:\n        repos_df = pd.read_sql(\"SELECT id, owner||'/'||name as repo FROM repositories\", conn)",
         "detail": "src.application.use_cases.generate_report",
         "documentation": {}
     },
@@ -1198,7 +1234,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def load_config_from_public_drive(file_id: str) -> dict:\n    \"\"\"Cargar configuración desde Google Drive público (sin credenciales)\"\"\"\n    try:\n        url = f\"https://drive.google.com/uc?export=download&id={file_id}\"\n        response = requests.get(url, timeout=30)\n        response.raise_for_status()\n        content = response.text\n        # Manejar caso donde Google devuelve HTML con warning de virus\n        if content.startswith(\"<!DOCTYPE\") or \"download_warning\" in content:\n            import re",
+        "peekOfCode": "def load_config_from_public_drive(file_id: str) -> dict:\n    \"\"\"Cargar configuración desde Google Drive público (sin credenciales)\"\"\"\n    try:\n        url = f\"https://drive.google.com/uc?export=download&id={file_id}\"\n        response = requests.get(url, timeout=30)\n        response.raise_for_status()\n        content = response.text\n        if content.startswith(\"<!DOCTYPE\") or \"download_warning\" in content:\n            import re\n            match = re.search(r'confirm=([a-zA-Z0-9_-]+)', content)",
         "detail": "main",
         "documentation": {}
     },
@@ -1216,7 +1252,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    logger.info(\"=\" * 50)\n    logger.info(\"Iniciando GitHub Data Pipeline\")\n    logger.info(\"=\" * 50)\n    # Cargar configuración\n    config = PipelineConfig()\n    # Inicializar adaptadores\n    github = GitHubAdapter(config.github.token)\n    db = Database(config.database.connection_string)\n    db_adapter = DatabaseAdapter(db)",
+        "peekOfCode": "def main():\n    logger.info(\"=\" * 50)\n    logger.info(\"Iniciando GitHub Data Pipeline\")\n    logger.info(\"=\" * 50)\n    config = PipelineConfig()\n    github = GitHubAdapter(config.github.token)\n    db = Database(config.database.connection_string)\n    db_adapter = DatabaseAdapter(db)\n    try:\n        # Cargar repositorios desde Google Drive",
         "detail": "main",
         "documentation": {}
     }

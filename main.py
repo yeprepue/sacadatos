@@ -3,7 +3,6 @@ import os
 import json
 import requests
 from pathlib import Path
-from datetime import datetime
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -13,6 +12,7 @@ from src.infrastructure.adapters.github_adapter import GitHubAdapter
 from src.infrastructure.adapters.database_adapter import DatabaseAdapter
 from src.infrastructure.adapters.drive_adapter import DriveAdapter
 from src.application.use_cases.extract_github_data import ExtractGitHubDataUseCase
+from src.application.use_cases.generate_report import GenerateReportUseCase
 from src.config.logging_config import logger
 
 
@@ -42,7 +42,6 @@ def load_config_from_public_drive(file_id: str) -> dict:
         response.raise_for_status()
         content = response.text
         
-        # Manejar caso donde Google devuelve HTML con warning de virus
         if content.startswith("<!DOCTYPE") or "download_warning" in content:
             import re
             match = re.search(r'confirm=([a-zA-Z0-9_-]+)', content)
@@ -83,10 +82,8 @@ def main():
     logger.info("Iniciando GitHub Data Pipeline")
     logger.info("=" * 50)
     
-    # Cargar configuración
     config = PipelineConfig()
     
-    # Inicializar adaptadores
     github = GitHubAdapter(config.github.token)
     db = Database(config.database.connection_string)
     db_adapter = DatabaseAdapter(db)
@@ -112,7 +109,6 @@ def main():
         
         repositories = pipeline_config.get("repositories", [])
         
-        # Determinar tipo de extracción
         extraction_type = sys.argv[1] if len(sys.argv) > 1 else "full"
         since = pipeline_config.get("last_extraction") if extraction_type == "incremental" else None
         
@@ -124,6 +120,12 @@ def main():
         extraction_result = extract_use_case.execute(repositories, since)
         
         logger.info(f"Resultado extracción: {extraction_result}")
+        
+        # Generar reporte
+        report_use_case = GenerateReportUseCase(db_adapter, None)
+        report_result = report_use_case.execute()
+        logger.info(f"Reporte generado: {report_result}")
+        
         logger.info("Pipeline completado exitosamente!")
         return 0
         

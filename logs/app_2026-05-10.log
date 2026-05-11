@@ -193,3 +193,478 @@
 2026-05-10 15:38:15 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
 2026-05-10 15:38:16 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 15 commits
 2026-05-10 15:38:16 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 15:39:32 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 16:10:14 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: pandas-dev/pandas - 2895 issues, 37957 commits
+2026-05-10 16:10:14 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: microsoft/vscode
+2026-05-10 16:11:37 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/microsoft/vscode/issues
+2026-05-10 16:31:01 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: microsoft/vscode - 6189 issues, 157019 commits
+2026-05-10 16:31:12 | INFO     | __main__:main:126 - Resultado extracción: {'status': 'completed', 'duration_seconds': 3176.333063, 'total_repositories': 3, 'successful': 3, 'failed': 0, 'results': [{'repository': 'yeprepue/sacadatos', 'issues_count': 0, 'commits_count': 15, 'timestamp': '2026-05-10T15:38:16.826520'}, {'repository': 'pandas-dev/pandas', 'issues_count': 2895, 'commits_count': 37957, 'timestamp': '2026-05-10T16:10:14.700508'}, {'repository': 'microsoft/vscode', 'issues_count': 6189, 'commits_count': 157019, 'timestamp': '2026-05-10T16:31:02.000871'}]}
+2026-05-10 16:31:12 | INFO     | __main__:main:127 - Pipeline completado exitosamente!
+2026-05-10 16:31:12 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 16:40:03 | INFO     | __main__:main:82 - ==================================================
+2026-05-10 16:40:03 | INFO     | __main__:main:83 - Iniciando GitHub Data Pipeline
+2026-05-10 16:40:03 | INFO     | __main__:main:84 - ==================================================
+2026-05-10 16:40:03 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 16:40:03 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 16:40:03 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 16:40:05 | INFO     | __main__:load_config_from_public_drive:56 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 16:40:05 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 16:40:05 | INFO     | __main__:main:116 - Repositorios a procesar: 3
+2026-05-10 16:40:05 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 3 repositorios
+2026-05-10 16:40:05 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 16:40:07 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 19 commits
+2026-05-10 16:40:07 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 16:43:20 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 16:43:20 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 16:44:23 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 16:44:23 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 16:44:24 | INFO     | src.application.use_cases.generate_report:execute:20 - CSV generado: reporte_github.csv
+2026-05-10 16:44:24 | INFO     | src.application.use_cases.generate_report:execute:27 - Reporte guardado localmente (requiere drive_client para subir a Drive)
+2026-05-10 16:44:24 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 17:06:27 | INFO     | __main__:main:59 - ==================================================
+2026-05-10 17:06:27 | INFO     | __main__:main:60 - Iniciando GitHub Data Pipeline
+2026-05-10 17:06:27 | INFO     | __main__:main:61 - ==================================================
+2026-05-10 17:06:28 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 17:06:28 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 17:06:28 | WARNING  | __main__:load_config_from_file:25 - Archivo no encontrado, usando default
+2026-05-10 17:06:28 | INFO     | __main__:main:78 - Extraccion: full
+2026-05-10 17:06:28 | INFO     | __main__:main:79 - Repos: 2
+2026-05-10 17:06:28 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 2 repositorios
+2026-05-10 17:06:28 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 17:07:31 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 17:12:51 | INFO     | __main__:main:36 - ==================================================
+2026-05-10 17:12:51 | INFO     | __main__:main:37 - Iniciando GitHub Data Pipeline
+2026-05-10 17:12:51 | INFO     | __main__:main:38 - ==================================================
+2026-05-10 17:12:51 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 17:12:51 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 17:12:51 | WARNING  | __main__:load_config_from_file:25 - Archivo no encontrado, usando default
+2026-05-10 17:12:51 | INFO     | __main__:main:54 - Extraccion: full
+2026-05-10 17:12:51 | INFO     | __main__:main:55 - Repos: 2
+2026-05-10 17:12:51 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 2 repositorios
+2026-05-10 17:12:51 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 17:13:03 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 17:15:07 | INFO     | __main__:main:36 - ==================================================
+2026-05-10 17:15:07 | INFO     | __main__:main:37 - Iniciando GitHub Data Pipeline
+2026-05-10 17:15:07 | INFO     | __main__:main:38 - ==================================================
+2026-05-10 17:15:07 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 17:15:07 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 17:15:07 | WARNING  | __main__:load_config_from_file:25 - Archivo no encontrado, usando default
+2026-05-10 17:15:07 | INFO     | __main__:main:54 - Extraccion: full
+2026-05-10 17:15:07 | INFO     | __main__:main:55 - Repos: 2
+2026-05-10 17:15:07 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 2 repositorios
+2026-05-10 17:15:07 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 17:16:24 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 17:16:36 | INFO     | src.application.use_cases.generate_report:generate_csv_reports:25 - Issues: 2895
+2026-05-10 17:16:36 | INFO     | src.application.use_cases.generate_report:generate_csv_reports:33 - Commits: 0
+2026-05-10 17:16:36 | INFO     | src.application.use_cases.generate_report:generate_csv_reports:47 - Summary: 1
+2026-05-10 17:16:36 | INFO     | src.application.use_cases.generate_report:generate_csv_reports:49 - CSVs generados!
+2026-05-10 17:21:37 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: pandas-dev/pandas - 2895 issues, 37957 commits
+2026-05-10 17:21:38 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: microsoft/vscode
+2026-05-10 17:23:02 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/microsoft/vscode/issues
+2026-05-10 17:39:03 | ERROR    | src.application.use_cases.extract_github_data:execute:31 - Error procesando microsoft/vscode: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: INSERT INTO commits (sha, repo_id, message, author_login, author_date, extraction_date) VALUES (%(sha)s, %(repo_id)s, %(message)s, %(author_login)s, %(author_date)s, %(extraction_date)s)]
+[parameters: {'sha': 'c3d5c8fb0be1a944cbf12552af0732f12948987e', 'repo_id': 2, 'message': 'fix #133538', 'author_login': 'meganrogge', 'author_date': datetime.datetime(2021, 9, 21, 17, 51, 16, tzinfo=datetime.timezone.utc), 'extraction_date': datetime.datetime(2026, 5, 10, 17, 34, 26, 502301)}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-10 17:39:03 | INFO     | __main__:main:61 - Resultado: {'status': 'completed', 'duration_seconds': 1435.525537, 'total_repositories': 2, 'successful': 1, 'failed': 1, 'results': [{'repository': 'pandas-dev/pandas', 'issues_count': 2895, 'commits_count': 37957, 'timestamp': '2026-05-10T17:21:37.032126'}, {'repository': 'microsoft/vscode', 'error': "(raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)\n(psycopg2.OperationalError) server closed the connection unexpectedly\n\tThis probably means the server terminated abnormally\n\tbefore or while processing the request.\n\n[SQL: INSERT INTO commits (sha, repo_id, message, author_login, author_date, extraction_date) VALUES (%(sha)s, %(repo_id)s, %(message)s, %(author_login)s, %(author_date)s, %(extraction_date)s)]\n[parameters: {'sha': 'c3d5c8fb0be1a944cbf12552af0732f12948987e', 'repo_id': 2, 'message': 'fix #133538', 'author_login': 'meganrogge', 'author_date': datetime.datetime(2021, 9, 21, 17, 51, 16, tzinfo=datetime.timezone.utc), 'extraction_date': datetime.datetime(2026, 5, 10, 17, 34, 26, 502301)}]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)", 'status': 'failed'}]}
+2026-05-10 17:39:03 | INFO     | __main__:main:65 - Generando reporte...
+2026-05-10 17:40:01 | SUCCESS  | __main__:main:67 - Reporte generado!
+2026-05-10 17:40:01 | SUCCESS  | __main__:main:71 - Pipeline completado!
+2026-05-10 17:40:01 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 17:46:56 | INFO     | __main__:main:81 - ==================================================
+2026-05-10 17:46:56 | INFO     | __main__:main:82 - Iniciando GitHub Data Pipeline
+2026-05-10 17:46:56 | INFO     | __main__:main:83 - ==================================================
+2026-05-10 17:46:57 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 17:46:57 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 17:46:57 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 17:46:58 | ERROR    | __main__:load_config_from_public_drive:58 - Failed to load config from public Drive: Expecting value: line 7 column 3 (char 254)
+2026-05-10 17:46:58 | WARNING  | __main__:main:97 - Fallo al cargar desde Drive, intentando archivo local...
+2026-05-10 17:46:58 | WARNING  | __main__:load_config_from_file:27 - Archivo config.json no encontrado, usando configuración por defecto
+2026-05-10 17:46:58 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 17:46:58 | INFO     | __main__:main:116 - Repositorios a procesar: 2
+2026-05-10 17:46:58 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 2 repositorios
+2026-05-10 17:46:58 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 17:47:24 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 17:49:56 | INFO     | __main__:main:81 - ==================================================
+2026-05-10 17:49:56 | INFO     | __main__:main:82 - Iniciando GitHub Data Pipeline
+2026-05-10 17:49:56 | INFO     | __main__:main:83 - ==================================================
+2026-05-10 17:49:57 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 17:49:57 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 17:49:57 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 17:49:58 | INFO     | __main__:load_config_from_public_drive:55 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 17:49:58 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 17:49:58 | INFO     | __main__:main:116 - Repositorios a procesar: 4
+2026-05-10 17:49:58 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 4 repositorios
+2026-05-10 17:49:58 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 17:49:59 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 19 commits
+2026-05-10 17:49:59 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/React-Fronted-Hoteles-from
+2026-05-10 17:50:00 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/React-Fronted-Hoteles-from - 0 issues, 9 commits
+2026-05-10 17:50:00 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/Pre-salud-front
+2026-05-10 17:50:00 | ERROR    | src.infrastructure.adapters.github_adapter:_request:36 - Request failed: 409 Client Error: Conflict for url: https://api.github.com/repos/yeprepue/Pre-salud-front/commits?per_page=100&page=1
+2026-05-10 17:50:00 | ERROR    | src.application.use_cases.extract_github_data:execute:31 - Error procesando yeprepue/Pre-salud-front: 409 Client Error: Conflict for url: https://api.github.com/repos/yeprepue/Pre-salud-front/commits?per_page=100&page=1
+2026-05-10 17:50:00 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/ForexAI_Project
+2026-05-10 17:50:01 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/ForexAI_Project - 0 issues, 8 commits
+2026-05-10 17:50:01 | INFO     | __main__:main:122 - Resultado extracción: {'status': 'completed', 'duration_seconds': 3.056849, 'total_repositories': 4, 'successful': 3, 'failed': 1, 'results': [{'repository': 'yeprepue/sacadatos', 'issues_count': 0, 'commits_count': 19, 'timestamp': '2026-05-10T17:49:59.386679'}, {'repository': 'yeprepue/React-Fronted-Hoteles-from', 'issues_count': 0, 'commits_count': 9, 'timestamp': '2026-05-10T17:50:00.187024'}, {'repository': 'yeprepue/Pre-salud-front', 'error': '409 Client Error: Conflict for url: https://api.github.com/repos/yeprepue/Pre-salud-front/commits?per_page=100&page=1', 'status': 'failed'}, {'repository': 'yeprepue/ForexAI_Project', 'issues_count': 0, 'commits_count': 8, 'timestamp': '2026-05-10T17:50:01.230056'}]}
+2026-05-10 17:50:04 | INFO     | src.application.use_cases.generate_report:generate_excel_report:27 - Hoja Issues: 9083
+2026-05-10 17:50:10 | INFO     | src.application.use_cases.generate_report:generate_excel_report:36 - Hoja Commits: 37993
+2026-05-10 17:51:11 | INFO     | src.application.use_cases.generate_report:generate_excel_report:51 - Hoja Resumen: 6
+2026-05-10 17:51:20 | INFO     | src.application.use_cases.generate_report:generate_excel_report:53 - Reporte Excel generado: reporte_github.xlsx
+2026-05-10 17:51:20 | INFO     | __main__:main:128 - Reporte generado: {'status': 'success', 'filename': 'reporte_github.xlsx'}
+2026-05-10 17:51:20 | INFO     | __main__:main:130 - Pipeline completado exitosamente!
+2026-05-10 17:51:20 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 17:54:35 | INFO     | __main__:main:81 - ==================================================
+2026-05-10 17:54:35 | INFO     | __main__:main:82 - Iniciando GitHub Data Pipeline
+2026-05-10 17:54:35 | INFO     | __main__:main:83 - ==================================================
+2026-05-10 17:54:35 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 17:54:35 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 17:54:35 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 17:54:36 | INFO     | __main__:load_config_from_public_drive:55 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 17:54:36 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 17:54:36 | INFO     | __main__:main:116 - Repositorios a procesar: 4
+2026-05-10 17:54:36 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 4 repositorios
+2026-05-10 17:54:36 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 17:54:38 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 19 commits
+2026-05-10 17:54:38 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/React-Fronted-Hoteles-from
+2026-05-10 17:54:38 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/React-Fronted-Hoteles-from - 0 issues, 9 commits
+2026-05-10 17:54:38 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/Pre-salud-front
+2026-05-10 17:54:39 | ERROR    | src.infrastructure.adapters.github_adapter:_request:36 - Request failed: 409 Client Error: Conflict for url: https://api.github.com/repos/yeprepue/Pre-salud-front/commits?per_page=100&page=1
+2026-05-10 17:54:39 | ERROR    | src.application.use_cases.extract_github_data:execute:31 - Error procesando yeprepue/Pre-salud-front: 409 Client Error: Conflict for url: https://api.github.com/repos/yeprepue/Pre-salud-front/commits?per_page=100&page=1
+2026-05-10 17:54:39 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/ForexAI_Project
+2026-05-10 17:54:39 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/ForexAI_Project - 0 issues, 8 commits
+2026-05-10 17:54:39 | INFO     | __main__:main:122 - Resultado extracción: {'status': 'completed', 'duration_seconds': 3.116639, 'total_repositories': 4, 'successful': 3, 'failed': 1, 'results': [{'repository': 'yeprepue/sacadatos', 'issues_count': 0, 'commits_count': 19, 'timestamp': '2026-05-10T17:54:38.159508'}, {'repository': 'yeprepue/React-Fronted-Hoteles-from', 'issues_count': 0, 'commits_count': 9, 'timestamp': '2026-05-10T17:54:38.871678'}, {'repository': 'yeprepue/Pre-salud-front', 'error': '409 Client Error: Conflict for url: https://api.github.com/repos/yeprepue/Pre-salud-front/commits?per_page=100&page=1', 'status': 'failed'}, {'repository': 'yeprepue/ForexAI_Project', 'issues_count': 0, 'commits_count': 8, 'timestamp': '2026-05-10T17:54:39.949275'}]}
+2026-05-10 17:54:40 | INFO     | src.application.use_cases.generate_report:generate_excel_report:27 - Hoja Issues: 0
+2026-05-10 17:54:40 | INFO     | src.application.use_cases.generate_report:generate_excel_report:36 - Hoja Commits: 36
+2026-05-10 17:54:40 | INFO     | src.application.use_cases.generate_report:generate_excel_report:51 - Hoja Resumen: 4
+2026-05-10 17:54:41 | INFO     | src.application.use_cases.generate_report:generate_excel_report:53 - Reporte Excel generado: reporte_github.xlsx
+2026-05-10 17:54:41 | INFO     | __main__:main:128 - Reporte generado: {'status': 'success', 'filename': 'reporte_github.xlsx'}
+2026-05-10 17:54:41 | INFO     | __main__:main:130 - Pipeline completado exitosamente!
+2026-05-10 17:54:41 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 17:59:14 | INFO     | __main__:main:81 - ==================================================
+2026-05-10 17:59:14 | INFO     | __main__:main:82 - Iniciando GitHub Data Pipeline
+2026-05-10 17:59:14 | INFO     | __main__:main:83 - ==================================================
+2026-05-10 17:59:15 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 17:59:15 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 17:59:15 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 17:59:16 | INFO     | __main__:load_config_from_public_drive:55 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 17:59:16 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 17:59:16 | INFO     | __main__:main:116 - Repositorios a procesar: 3
+2026-05-10 17:59:16 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 3 repositorios
+2026-05-10 17:59:16 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 17:59:17 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 19 commits
+2026-05-10 17:59:17 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 18:00:32 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 18:04:29 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: pandas-dev/pandas - 2895 issues, 37957 commits
+2026-05-10 18:04:30 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: microsoft/vscode
+2026-05-10 18:05:54 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/microsoft/vscode/issues
+2026-05-10 18:22:19 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: microsoft/vscode - 6186 issues, 157019 commits
+2026-05-10 18:22:30 | INFO     | __main__:main:122 - Resultado extracción: {'status': 'completed', 'duration_seconds': 1394.577469, 'total_repositories': 3, 'successful': 3, 'failed': 0, 'results': [{'repository': 'yeprepue/sacadatos', 'issues_count': 0, 'commits_count': 19, 'timestamp': '2026-05-10T17:59:17.496877'}, {'repository': 'pandas-dev/pandas', 'issues_count': 2895, 'commits_count': 37957, 'timestamp': '2026-05-10T18:04:29.888753'}, {'repository': 'microsoft/vscode', 'issues_count': 6186, 'commits_count': 157019, 'timestamp': '2026-05-10T18:22:19.682828'}]}
+2026-05-10 18:22:34 | INFO     | src.application.use_cases.generate_report:generate_excel_report:27 - Hoja Issues: 9081
+2026-05-10 18:22:55 | ERROR    | __main__:main:134 - Pipeline falló: extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)
+
+* extensions: rename supportSessionsWindow setting to supportAgentsWindow
+
+Renames the \xtensions.supportSessionsWindow\ setting and its associated
+constant \EXTENSIONS_SUPPORT_SESSIONS_WINDOW\ to \xtensions.supportAgentsWindow\
+and \EXTENSIONS_SUPPORT_AGENTS_WINDOW\ respectively, to align with the
+renaming of the Sessions window to the Agents window.
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+* extensions: add vscodevim.vim to sessions window allowed extensions
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+---------
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com> cannot be used in worksheets.
+Traceback (most recent call last):
+
+  File "C:\Users\User\Desktop\sacadatos\main.py", line 143, in <module>
+    sys.exit(main())
+    │   │    └ <function main at 0x000001A7CDC6B380>
+    │   └ <built-in function exit>
+    └ <module 'sys' (built-in)>
+
+> File "C:\Users\User\Desktop\sacadatos\main.py", line 127, in main
+    report_result = report_use_case.execute(str(report_path))
+                    │               │           └ WindowsPath('reporte_github.xlsx')
+                    │               └ <function GenerateReportUseCase.execute at 0x000001A7DED30A40>
+                    └ <src.application.use_cases.generate_report.GenerateReportUseCase object at 0x000001A7B7E40410>
+
+  File "C:\Users\User\Desktop\sacadatos\src\application\use_cases\generate_report.py", line 66, in execute
+    generate_excel_report(local_path)
+    │                     └ 'reporte_github.xlsx'
+    └ <function generate_excel_report at 0x000001A7CE38AF20>
+
+  File "C:\Users\User\Desktop\sacadatos\src\application\use_cases\generate_report.py", line 35, in generate_excel_report
+    df_commits.to_excel(writer, sheet_name='Commits', index=False)
+    │          │        └ <pandas.io.excel._openpyxl.OpenpyxlWriter object at 0x000001A7B7E40080>
+    │          └ <function NDFrame.to_excel at 0x000001A7DEB50360>
+    └                                              sha                repo                                            message autho...
+
+  File "C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           │     │       └ {'sheet_name': 'Commits', 'index': False}
+           │     └ (                                             sha                repo                                            message auth...
+           └ <function NDFrame.to_excel at 0x000001A7DEB50400>
+  File "C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pandas\core\generic.py", line 2439, in to_excel
+    formatter.write(
+    │         └ <function ExcelFormatter.write at 0x000001A800AAFCE0>
+    └ <pandas.io.formats.excel.ExcelFormatter object at 0x000001A7C647B560>
+  File "C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pandas\io\formats\excel.py", line 952, in write
+    writer._write_cells(
+    │      └ <function OpenpyxlWriter._write_cells at 0x000001A7DEE18720>
+    └ <pandas.io.excel._openpyxl.OpenpyxlWriter object at 0x000001A7B7E40080>
+  File "C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pandas\io\excel\_openpyxl.py", line 490, in _write_cells
+    xcell.value, fmt = self._value_with_fmt(cell.val)
+    │     │            │    │               │    └ <member 'val' of 'ExcelCell' objects>
+    │     │            │    │               └ <pandas.io.formats.excel.CssExcelCell object at 0x000001A7A4BE28D0>
+    │     │            │    └ <function ExcelWriter._value_with_fmt at 0x000001A7DEDEE7A0>
+    │     │            └ <pandas.io.excel._openpyxl.OpenpyxlWriter object at 0x000001A7B7E40080>
+    │     └ <property object at 0x000001A798C31D50>
+    └ <Cell 'Commits'.C38228>
+  File "C:\ProgramData\anaconda3\Lib\site-packages\openpyxl\cell\cell.py", line 218, in value
+    self._bind_value(value)
+    │    │           └ 'extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)\n\n* extensions: rename supportSession...
+    │    └ <function Cell._bind_value at 0x000001A7DF0FE020>
+    └ <Cell 'Commits'.C38228>
+  File "C:\ProgramData\anaconda3\Lib\site-packages\openpyxl\cell\cell.py", line 197, in _bind_value
+    value = self.check_string(value)
+            │    │            └ 'extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)\n\n* extensions: rename supportSession...
+            │    └ <function Cell.check_string at 0x000001A7DF0FDEE0>
+            └ <Cell 'Commits'.C38228>
+  File "C:\ProgramData\anaconda3\Lib\site-packages\openpyxl\cell\cell.py", line 165, in check_string
+    raise IllegalCharacterError(f"{value} cannot be used in worksheets.")
+          │                        └ 'extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)\n\n* extensions: rename supportSession...
+          └ <class 'openpyxl.utils.exceptions.IllegalCharacterError'>
+
+openpyxl.utils.exceptions.IllegalCharacterError: extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)
+
+* extensions: rename supportSessionsWindow setting to supportAgentsWindow
+
+Renames the \xtensions.supportSessionsWindow\ setting and its associated
+constant \EXTENSIONS_SUPPORT_SESSIONS_WINDOW\ to \xtensions.supportAgentsWindow\
+and \EXTENSIONS_SUPPORT_AGENTS_WINDOW\ respectively, to align with the
+renaming of the Sessions window to the Agents window.
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+* extensions: add vscodevim.vim to sessions window allowed extensions
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+---------
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com> cannot be used in worksheets.
+2026-05-10 18:22:55 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 18:34:25 | INFO     | __main__:main:81 - ==================================================
+2026-05-10 18:34:25 | INFO     | __main__:main:82 - Iniciando GitHub Data Pipeline
+2026-05-10 18:34:25 | INFO     | __main__:main:83 - ==================================================
+2026-05-10 18:34:26 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 18:34:26 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 18:34:26 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 18:34:29 | INFO     | __main__:load_config_from_public_drive:55 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 18:34:29 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 18:34:29 | INFO     | __main__:main:116 - Repositorios a procesar: 3
+2026-05-10 18:34:29 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 3 repositorios
+2026-05-10 18:34:29 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 18:34:30 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 19 commits
+2026-05-10 18:34:30 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 18:35:48 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 18:39:23 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: pandas-dev/pandas - 2895 issues, 37957 commits
+2026-05-10 18:39:24 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: microsoft/vscode
+2026-05-10 18:40:51 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/microsoft/vscode/issues
+2026-05-10 18:59:13 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: microsoft/vscode - 6186 issues, 157020 commits
+2026-05-10 18:59:23 | INFO     | __main__:main:122 - Resultado extracción: {'status': 'completed', 'duration_seconds': 1494.640674, 'total_repositories': 3, 'successful': 3, 'failed': 0, 'results': [{'repository': 'yeprepue/sacadatos', 'issues_count': 0, 'commits_count': 19, 'timestamp': '2026-05-10T18:34:30.676049'}, {'repository': 'pandas-dev/pandas', 'issues_count': 2895, 'commits_count': 37957, 'timestamp': '2026-05-10T18:39:23.850978'}, {'repository': 'microsoft/vscode', 'issues_count': 6186, 'commits_count': 157020, 'timestamp': '2026-05-10T18:59:14.048920'}]}
+2026-05-10 18:59:27 | INFO     | src.application.use_cases.generate_report:generate_excel_report:27 - Hoja Issues: 9081
+2026-05-10 18:59:49 | ERROR    | __main__:main:134 - Pipeline falló: extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)
+
+* extensions: rename supportSessionsWindow setting to supportAgentsWindow
+
+Renames the \xtensions.supportSessionsWindow\ setting and its associated
+constant \EXTENSIONS_SUPPORT_SESSIONS_WINDOW\ to \xtensions.supportAgentsWindow\
+and \EXTENSIONS_SUPPORT_AGENTS_WINDOW\ respectively, to align with the
+renaming of the Sessions window to the Agents window.
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+* extensions: add vscodevim.vim to sessions window allowed extensions
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+---------
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com> cannot be used in worksheets.
+Traceback (most recent call last):
+
+  File "C:\Users\User\Desktop\sacadatos\main.py", line 143, in <module>
+    sys.exit(main())
+    │   │    └ <function main at 0x00000288D23DB380>
+    │   └ <built-in function exit>
+    └ <module 'sys' (built-in)>
+
+> File "C:\Users\User\Desktop\sacadatos\main.py", line 127, in main
+    report_result = report_use_case.execute(str(report_path))
+                    │               │           └ WindowsPath('reporte_github.xlsx')
+                    │               └ <function GenerateReportUseCase.execute at 0x00000288E3444C20>
+                    └ <src.application.use_cases.generate_report.GenerateReportUseCase object at 0x00000289012C45F0>
+
+  File "C:\Users\User\Desktop\sacadatos\src\application\use_cases\generate_report.py", line 71, in execute
+    generate_excel_report(local_path)
+    │                     └ 'reporte_github.xlsx'
+    └ <function generate_excel_report at 0x00000288D2AF3060>
+
+  File "C:\Users\User\Desktop\sacadatos\src\application\use_cases\generate_report.py", line 41, in generate_excel_report
+    df_commits.to_excel(writer, sheet_name='Commits', index=False)
+    │          │        └ <pandas.io.excel._openpyxl.OpenpyxlWriter object at 0x00000289012C4680>
+    │          └ <function NDFrame.to_excel at 0x00000288E3260540>
+    └                                              sha                repo                                            message autho...
+
+  File "C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           │     │       └ {'sheet_name': 'Commits', 'index': False}
+           │     └ (                                             sha                repo                                            message auth...
+           └ <function NDFrame.to_excel at 0x00000288E32605E0>
+  File "C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pandas\core\generic.py", line 2439, in to_excel
+    formatter.write(
+    │         └ <function ExcelFormatter.write at 0x0000028903FC0EA0>
+    └ <pandas.io.formats.excel.ExcelFormatter object at 0x0000028903891400>
+  File "C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pandas\io\formats\excel.py", line 952, in write
+    writer._write_cells(
+    │      └ <function OpenpyxlWriter._write_cells at 0x00000288E3524900>
+    └ <pandas.io.excel._openpyxl.OpenpyxlWriter object at 0x00000289012C4680>
+  File "C:\Users\User\AppData\Roaming\Python\Python312\site-packages\pandas\io\excel\_openpyxl.py", line 490, in _write_cells
+    xcell.value, fmt = self._value_with_fmt(cell.val)
+    │     │            │    │               │    └ <member 'val' of 'ExcelCell' objects>
+    │     │            │    │               └ <pandas.io.formats.excel.CssExcelCell object at 0x00000288B74429F0>
+    │     │            │    └ <function ExcelWriter._value_with_fmt at 0x00000288E34F6980>
+    │     │            └ <pandas.io.excel._openpyxl.OpenpyxlWriter object at 0x00000289012C4680>
+    │     └ <property object at 0x00000288B778EE30>
+    └ <Cell 'Commits'.C38206>
+  File "C:\ProgramData\anaconda3\Lib\site-packages\openpyxl\cell\cell.py", line 218, in value
+    self._bind_value(value)
+    │    │           └ 'extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)\n\n* extensions: rename supportSession...
+    │    └ <function Cell._bind_value at 0x0000028903EAF1A0>
+    └ <Cell 'Commits'.C38206>
+  File "C:\ProgramData\anaconda3\Lib\site-packages\openpyxl\cell\cell.py", line 197, in _bind_value
+    value = self.check_string(value)
+            │    │            └ 'extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)\n\n* extensions: rename supportSession...
+            │    └ <function Cell.check_string at 0x0000028903EAF060>
+            └ <Cell 'Commits'.C38206>
+  File "C:\ProgramData\anaconda3\Lib\site-packages\openpyxl\cell\cell.py", line 165, in check_string
+    raise IllegalCharacterError(f"{value} cannot be used in worksheets.")
+          │                        └ 'extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)\n\n* extensions: rename supportSession...
+          └ <class 'openpyxl.utils.exceptions.IllegalCharacterError'>
+
+openpyxl.utils.exceptions.IllegalCharacterError: extensions: rename `supportSessionsWindow` setting to `supportAgentsWindow` (#315265)
+
+* extensions: rename supportSessionsWindow setting to supportAgentsWindow
+
+Renames the \xtensions.supportSessionsWindow\ setting and its associated
+constant \EXTENSIONS_SUPPORT_SESSIONS_WINDOW\ to \xtensions.supportAgentsWindow\
+and \EXTENSIONS_SUPPORT_AGENTS_WINDOW\ respectively, to align with the
+renaming of the Sessions window to the Agents window.
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+* extensions: add vscodevim.vim to sessions window allowed extensions
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+---------
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com> cannot be used in worksheets.
+2026-05-10 18:59:49 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 19:05:03 | INFO     | src.application.use_cases.generate_report:generate_excel_report:37 - Hoja Issues: 9081
+2026-05-10 19:06:23 | INFO     | src.application.use_cases.generate_report:generate_excel_report:43 - Hoja Issues: 9081
+2026-05-10 19:06:51 | INFO     | src.application.use_cases.generate_report:generate_excel_report:55 - Hoja Commits: 194995
+2026-05-10 19:25:34 | INFO     | __main__:main:81 - ==================================================
+2026-05-10 19:25:34 | INFO     | __main__:main:82 - Iniciando GitHub Data Pipeline
+2026-05-10 19:25:34 | INFO     | __main__:main:83 - ==================================================
+2026-05-10 19:25:34 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 19:25:34 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 19:25:34 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 19:25:35 | INFO     | __main__:load_config_from_public_drive:55 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 19:25:35 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 19:25:35 | INFO     | __main__:main:116 - Repositorios a procesar: 3
+2026-05-10 19:25:35 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 3 repositorios
+2026-05-10 19:25:35 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 19:25:37 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 19 commits
+2026-05-10 19:25:37 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 19:26:55 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 19:30:30 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: pandas-dev/pandas - 2895 issues, 37957 commits
+2026-05-10 19:30:30 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: microsoft/vscode
+2026-05-10 19:31:56 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/microsoft/vscode/issues
+2026-05-10 19:47:58 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: microsoft/vscode - 6184 issues, 157020 commits
+2026-05-10 19:48:11 | INFO     | __main__:main:122 - Resultado extracción: {'status': 'completed', 'duration_seconds': 1355.958869, 'total_repositories': 3, 'successful': 3, 'failed': 0, 'results': [{'repository': 'yeprepue/sacadatos', 'issues_count': 0, 'commits_count': 19, 'timestamp': '2026-05-10T19:25:37.059424'}, {'repository': 'pandas-dev/pandas', 'issues_count': 2895, 'commits_count': 37957, 'timestamp': '2026-05-10T19:30:30.495936'}, {'repository': 'microsoft/vscode', 'issues_count': 6184, 'commits_count': 157020, 'timestamp': '2026-05-10T19:47:58.617289'}]}
+2026-05-10 19:48:15 | INFO     | src.application.use_cases.generate_report:generate_excel_report:43 - Hoja Issues: 9082
+2026-05-10 19:48:36 | INFO     | src.application.use_cases.generate_report:generate_excel_report:55 - Hoja Commits: 194996
+2026-05-10 19:58:41 | INFO     | src.application.use_cases.generate_report:generate_excel_report:70 - Hoja Resumen: 3
+2026-05-10 19:59:20 | INFO     | src.application.use_cases.generate_report:generate_excel_report:72 - Reporte Excel generado: reporte_github.xlsx
+2026-05-10 19:59:20 | INFO     | __main__:main:128 - Reporte generado: {'status': 'success', 'filename': 'reporte_github.xlsx'}
+2026-05-10 19:59:20 | INFO     | __main__:main:130 - Pipeline completado exitosamente!
+2026-05-10 19:59:20 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 20:08:30 | INFO     | __main__:main:81 - ==================================================
+2026-05-10 20:08:30 | INFO     | __main__:main:82 - Iniciando GitHub Data Pipeline
+2026-05-10 20:08:30 | INFO     | __main__:main:83 - ==================================================
+2026-05-10 20:08:31 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 20:08:31 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 20:08:31 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 20:08:32 | INFO     | __main__:load_config_from_public_drive:55 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 20:08:32 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 20:08:32 | INFO     | __main__:main:116 - Repositorios a procesar: 3
+2026-05-10 20:08:32 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 3 repositorios
+2026-05-10 20:08:32 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 20:08:33 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 19 commits
+2026-05-10 20:08:33 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: pandas-dev/pandas
+2026-05-10 20:09:52 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/pandas-dev/pandas/issues
+2026-05-10 20:14:06 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: pandas-dev/pandas - 2895 issues, 37957 commits
+2026-05-10 20:14:07 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: microsoft/vscode
+2026-05-10 20:15:35 | WARNING  | src.infrastructure.adapters.github_adapter:_request:31 - Unprocessable entity: repos/microsoft/vscode/issues
+2026-05-10 20:34:10 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: microsoft/vscode - 6182 issues, 157020 commits
+2026-05-10 20:34:21 | INFO     | __main__:main:122 - Resultado extracción: {'status': 'completed', 'duration_seconds': 1548.37758, 'total_repositories': 3, 'successful': 3, 'failed': 0, 'results': [{'repository': 'yeprepue/sacadatos', 'issues_count': 0, 'commits_count': 19, 'timestamp': '2026-05-10T20:08:33.808068'}, {'repository': 'pandas-dev/pandas', 'issues_count': 2895, 'commits_count': 37957, 'timestamp': '2026-05-10T20:14:06.865246'}, {'repository': 'microsoft/vscode', 'issues_count': 6182, 'commits_count': 157020, 'timestamp': '2026-05-10T20:34:10.601651'}]}
+2026-05-10 20:34:21 | ERROR    | __main__:main:133 - Pipeline falló: name 'generate_excel_report' is not defined
+Traceback (most recent call last):
+
+  File "C:\Users\User\Desktop\sacadatos\main.py", line 142, in <module>
+    sys.exit(main())
+    │   │    └ <function main at 0x00000229D9EDB2E0>
+    │   └ <built-in function exit>
+    └ <module 'sys' (built-in)>
+
+> File "C:\Users\User\Desktop\sacadatos\main.py", line 126, in main
+    report_result = report_use_case.execute()
+                    │               └ <function GenerateReportUseCase.execute at 0x00000229EB0CA7A0>
+                    └ <src.application.use_cases.generate_report.GenerateReportUseCase object at 0x0000022A015D84D0>
+
+  File "C:\Users\User\Desktop\sacadatos\src\application\use_cases\generate_report.py", line 109, in execute
+    generate_excel_report(local_path)
+                          └ 'reporte_github.xlsx'
+
+NameError: name 'generate_excel_report' is not defined
+2026-05-10 20:34:21 | INFO     | src.infrastructure.database:close:36 - Database connection closed
+2026-05-10 20:41:28 | INFO     | src.application.use_cases.generate_report:generate_csv_report:69 - CSV generado: reporte_github.csv (204073 filas)
+2026-05-10 20:49:45 | INFO     | __main__:main:81 - ==================================================
+2026-05-10 20:49:45 | INFO     | __main__:main:82 - Iniciando GitHub Data Pipeline
+2026-05-10 20:49:45 | INFO     | __main__:main:83 - ==================================================
+2026-05-10 20:49:45 | INFO     | src.infrastructure.database:_create_tables:20 - Tables created/verified
+2026-05-10 20:49:45 | INFO     | src.infrastructure.database:__init__:14 - Database connected: postgresql://postgres:admin@localhost:5432/sacadatos
+2026-05-10 20:49:45 | INFO     | __main__:main:93 - Cargando configuración desde Google Drive...
+2026-05-10 20:49:47 | INFO     | __main__:load_config_from_public_drive:55 - Config loaded from public Drive: 18vj1Md03uQPBwPrgze87Bzb_XkjDBD6n
+2026-05-10 20:49:47 | INFO     | __main__:main:115 - Tipo de extracción: full
+2026-05-10 20:49:47 | INFO     | __main__:main:116 - Repositorios a procesar: 3
+2026-05-10 20:49:47 | INFO     | src.application.use_cases.extract_github_data:execute:14 - Iniciando extracción para 3 repositorios
+2026-05-10 20:49:47 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/sacadatos
+2026-05-10 20:49:48 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/sacadatos - 0 issues, 19 commits
+2026-05-10 20:49:48 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: codecrafters-io/build-your-own-x
+2026-05-10 20:50:05 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: codecrafters-io/build-your-own-x - 910 issues, 611 commits
+2026-05-10 20:50:05 | INFO     | src.domain.services.pipeline_service:process_repository:18 - Procesando repositorio: yeprepue/ForexAI_Project
+2026-05-10 20:50:05 | INFO     | src.domain.services.pipeline_service:process_repository:33 - Completado: yeprepue/ForexAI_Project - 0 issues, 8 commits
+2026-05-10 20:50:05 | INFO     | __main__:main:122 - Resultado extracción: {'status': 'completed', 'duration_seconds': 18.935494, 'total_repositories': 3, 'successful': 3, 'failed': 0, 'results': [{'repository': 'yeprepue/sacadatos', 'issues_count': 0, 'commits_count': 19, 'timestamp': '2026-05-10T20:49:48.213741'}, {'repository': 'codecrafters-io/build-your-own-x', 'issues_count': 910, 'commits_count': 611, 'timestamp': '2026-05-10T20:50:05.387794'}, {'repository': 'yeprepue/ForexAI_Project', 'issues_count': 0, 'commits_count': 8, 'timestamp': '2026-05-10T20:50:05.982689'}]}
+2026-05-10 20:50:31 | INFO     | src.application.use_cases.generate_report:generate_csv_report:69 - CSV generado: reporte_github.csv (205602 filas)
+2026-05-10 20:50:31 | INFO     | __main__:main:127 - Reporte generado: {'status': 'success', 'file': 'reporte_github.csv', 'rows': 205602}
+2026-05-10 20:50:31 | INFO     | __main__:main:129 - Pipeline completado exitosamente!
+2026-05-10 20:50:31 | INFO     | src.infrastructure.database:close:36 - Database connection closed
