@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  postgres-airflow:
+    image: postgres:15-alpine
+    container_name: airflow_postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5433:5432"
+    volumes:
+      - airflow_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - airflow_network
+
+  airflow-init:
+    image: apache/airflow:2.8.1-python3.11
+    container_name: airflow_init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate
+        airflow users create -u airflow -p airflow -f Air -l Flow -r Admin -e airflow@airflow.com || true
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      PYTHONPATH: /opt/airflow/src
+    volumes:
+      - ../dags:/opt/airflow/dags
+      - ../src:/opt/airflow/src
+      - ../logs:/opt/airflow/logs
+      - ../credentials.json:/opt/airflow/credentials.json:ro
+    depends_on:
+      postgres-airflow:
+        condition: service_healthy
+    networks:
+      - airflow_network
+
+  airflow-webserver:
+    image: apache/airflow:2.8.1-python3.11
+    container_name: airflow_webserver
+    command: airflow webserver --port 8080
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__CORE__BASE_LOG_FOLDER: /opt/airflow/logs
+      AIRFLOW__CORE__DAG_PROCESSOR_MANAGER_LOGFILE: /opt/airflow/logs/dag-processor-manager/dag-processor-manager.log
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@postgres-airflow:5432/airflow
+      PYTHONPATH: /opt/airflow/src
+      GOOGLE_DRIVE_FOLDER_ID: ${GOOGLE_DRIVE_FOLDER_ID}
+      GOOGLE_DRIVE_CONFIG_FILE_ID: ${GOOGLE_DRIVE_CONFIG_FILE_ID}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../dags:/opt/airflow/dags
+      - ../src:/opt/airflow/src
+      - ../logs:/opt/airflow/logs
+      - ../credentials.json:/opt/airflow/credentials.json:ro
+    depends_on:
+      postgres-airflow:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - airflow_network
+
+  airflow-scheduler:
+    image: apache/airflow:2.8.1-python3.11
+    container_name: airflow_scheduler
+    command: airflow scheduler
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__CORE__BASE_LOG_FOLDER: /opt/airflow/logs
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@postgres-airflow:5432/airflow
+      PYTHONPATH: /opt/airflow/src
+      GOOGLE_DRIVE_FOLDER_ID: ${GOOGLE_DRIVE_FOLDER_ID}
+      GOOGLE_DRIVE_CONFIG_FILE_ID: ${GOOGLE_DRIVE_CONFIG_FILE_ID}
+    volumes:
+      - ../dags:/opt/airflow/dags
+      - ../src:/opt/airflow/src
+      - ../logs:/opt/airflow/logs
+      - ../credentials.json:/opt/airflow/credentials.json:ro
+    depends_on:
+      postgres-airflow:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+    networks:
+      - airflow_network
+
+volumes:
+  airflow_postgres_data:
+    name: docker_airflow_postgres_data
+
+networks:
+  airflow_network:
+    name: docker_airflow_network
