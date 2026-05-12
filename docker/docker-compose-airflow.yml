@@ -1,0 +1,184 @@
+version: "3.8"
+
+services:
+  # Base de datos para Airflow
+  postgres-airflow:
+    image: postgres:15-alpine
+    container_name: airflow_postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5433:5432"
+    volumes:
+      - airflow_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - airflow_network
+
+  # Cache con Redis
+  redis:
+    image: redis:7-alpine
+    container_name: airflow_redis
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - airflow_network
+
+  # Inicialización de BD (una sola vez)
+  airflow-init:
+    image: apache/airflow:2.8.1-python3.11
+    container_name: airflow_init
+    depends_on:
+      postgres-airflow:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+      AIRFLOW__CORE__FERNET_KEY: "VIX5D45YNDHQ8OG6T4Q8D45YNDHQ8OG6T4Q8D45YNDHQ8OG6T4Q8D45YND="
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+    command: >
+      bash -c "
+      echo 'Iniciando migración de base de datos...' &&
+      airflow db migrate &&
+      echo 'Creando usuario admin...' &&
+      airflow users create --role Admin --username airflow --password airflow --email airflow@airflow.com --firstname Airflow --lastname Airflow || echo 'Usuario ya existe' &&
+      echo 'Inicialización completada' &&
+      exit 0
+      "
+    networks:
+      - airflow_network
+
+  # Webserver de Airflow
+  airflow-webserver:
+    image: apache/airflow:2.8.1-python3.11
+    container_name: airflow_webserver
+    restart: always
+    depends_on:
+      postgres-airflow:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+    environment:
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+      AIRFLOW__CORE__FERNET_KEY: "VIX5D45YNDHQ8OG6T4Q8D45YNDHQ8OG6T4Q8D45YNDHQ8OG6T4Q8D45YND="
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
+      PYTHONPATH: "/opt/airflow/src:${PYTHONPATH}"
+    volumes:
+      - ../dags:/opt/airflow/dags
+      - ../logs:/opt/airflow/logs
+      - ../src:/opt/airflow/src
+      - ../reports:/opt/airflow/reports
+      - ../.env:/opt/airflow/.env
+    ports:
+      - "8080:8080"
+    command: webserver
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    networks:
+      - airflow_network
+
+  # Scheduler de Airflow
+  airflow-scheduler:
+    image: apache/airflow:2.8.1-python3.11
+    container_name: airflow_scheduler
+    restart: always
+    depends_on:
+      postgres-airflow:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+      airflow-webserver:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+      AIRFLOW__CORE__FERNET_KEY: "VIX5D45YNDHQ8OG6T4Q8D45YNDHQ8OG6T4Q8D45YNDHQ8OG6T4Q8D45YND="
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      PYTHONPATH: "/opt/airflow/src:${PYTHONPATH}"
+    volumes:
+      - ../dags:/opt/airflow/dags
+      - ../logs:/opt/airflow/logs
+      - ../src:/opt/airflow/src
+      - ../reports:/opt/airflow/reports
+      - ../.env:/opt/airflow/.env
+    command: scheduler
+    networks:
+      - airflow_network
+
+  # Worker de Celery para Airflow
+  airflow-worker:
+    image: apache/airflow:2.8.1-python3.11
+    container_name: airflow_worker
+    restart: always
+    depends_on:
+      postgres-airflow:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+    environment:
+      AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres-airflow:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+      AIRFLOW__CORE__FERNET_KEY: "VIX5D45YNDHQ8OG6T4Q8D45YNDHQ8OG6T4Q8D45YNDHQ8OG6T4Q8D45YND="
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      PYTHONPATH: "/opt/airflow/src:${PYTHONPATH}"
+    volumes:
+      - ../dags:/opt/airflow/dags
+      - ../logs:/opt/airflow/logs
+      - ../src:/opt/airflow/src
+      - ../reports:/opt/airflow/reports
+      - ../.env:/opt/airflow/.env
+    command: celery worker -l info
+    networks:
+      - airflow_network
+
+  # Flower para monitorear workers de Celery
+  flower:
+    image: mher/flower:2.0.1
+    container_name: airflow_flower
+    command: celery --broker=redis://:@redis:6379/0 flower --port=5555
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+    environment:
+      CELERY_BROKER_URL: redis://:@redis:6379/0
+      CELERY_RESULT_BACKEND: db+postgresql://airflow:airflow@postgres-airflow:5432/airflow
+    networks:
+      - airflow_network
+
+volumes:
+  airflow_postgres_data:
+
+networks:
+  airflow_network:
+    driver: bridge
