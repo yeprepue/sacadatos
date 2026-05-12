@@ -1,4 +1,3 @@
-# docker-compose.yml
 version: "3.8"
 
 services:
@@ -6,44 +5,45 @@ services:
     image: postgres:15-alpine
     container_name: github_pipeline_postgres
     environment:
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_DB: github_data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: sacadatos
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U airflow -d github_data"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d sacadatos"]
       interval: 5s
       timeout: 5s
       retries: 5
-
+      start_period: 30s
   redis:
     image: redis:7-alpine
+    container_name: github_pipeline_redis
     ports:
       - "6379:6379"
-
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   extractor:
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile
     image: github-extractor:latest
     container_name: github_extractor
-    environment:
-      GITHUB_TOKEN: ${GITHUB_TOKEN}
-      POSTGRES_HOST: postgres
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-      POSTGRES_DB: github_data
-      GOOGLE_CREDENTIALS_PATH: /app/credentials.json
-      GOOGLE_DRIVE_FOLDER_ID: ${GOOGLE_DRIVE_FOLDER_ID}
-      LOG_LEVEL: INFO
+    env_file:
+      - .env
     volumes:
-      - ./credentials.json:/app/credentials.json:ro
-      - ./logs:/app/logs
+      - ../logs:/app/logs
+      - ../src:/app/src
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
 volumes:
   postgres_data:

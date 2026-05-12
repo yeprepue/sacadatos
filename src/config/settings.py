@@ -15,11 +15,11 @@ class RepositoryConfig:
 
 @dataclass
 class DatabaseConfig:
-    host: str = os.getenv("POSTGRES_HOST", "localhost")
+    host: str = os.getenv("POSTGRES_HOST", "postgres")
     port: int = int(os.getenv("POSTGRES_PORT", "5432"))
-    user: str = os.getenv("POSTGRES_USER", "airflow")
-    password: str = os.getenv("POSTGRES_PASSWORD", "airflow")
-    database: str = os.getenv("POSTGRES_DB", "github_data")
+    user: str = os.getenv("POSTGRES_USER", "postgres")
+    password: str = os.getenv("POSTGRES_PASSWORD", "admin")
+    database: str = os.getenv("POSTGRES_DB", "sacadatos")
     
     @property
     def connection_string(self) -> str:

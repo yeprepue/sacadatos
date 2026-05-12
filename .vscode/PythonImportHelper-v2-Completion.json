@@ -201,22 +201,6 @@
         "documentation": {}
     },
     {
-        "label": "Iterator",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "Dict",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -254,14 +238,6 @@
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "GitHubClientPort",
-        "importPath": "src.domain.ports.github_client",
-        "description": "src.domain.ports.github_client",
-        "isExtraImport": true,
-        "detail": "src.domain.ports.github_client",
         "documentation": {}
     },
     {
@@ -318,14 +294,6 @@
         "description": "src.domain.services.pipeline_service",
         "isExtraImport": true,
         "detail": "src.domain.services.pipeline_service",
-        "documentation": {}
-    },
-    {
-        "label": "logger",
-        "importPath": "src.config.logging_config",
-        "description": "src.config.logging_config",
-        "isExtraImport": true,
-        "detail": "src.config.logging_config",
         "documentation": {}
     },
     {
@@ -1200,24 +1168,6 @@
         "description": "src.infrastructure.database",
         "peekOfCode": "class Database:\n    def __init__(self, connection_string: str):\n        self.connection_string = connection_string\n        self.engine = create_engine(connection_string, echo=False)\n        self._create_tables()\n        logger.info(f\"Database connected: {connection_string}\")\n    def _create_tables(self):\n        \"\"\"Crea las tablas automáticamente\"\"\"\n        from src.domain.models import Repository, Issue, Commit\n        SQLModel.metadata.create_all(self.engine)",
         "detail": "src.infrastructure.database",
-        "documentation": {}
-    },
-    {
-        "label": "GitHubAPIError",
-        "kind": 6,
-        "importPath": "fix_github_adapter",
-        "description": "fix_github_adapter",
-        "peekOfCode": "class GitHubAPIError(Exception):\n    pass\nclass GitHubAdapter(GitHubClientPort):\n    BASE_URL = \"https://api.github.com\"\n    MAX_PER_PAGE = 100\n    def __init__(self, token: str):\n        self.token = token\n        self.session = requests.Session()\n        self.session.headers.update({\n            \"Authorization\": f\"token {token}\",",
-        "detail": "fix_github_adapter",
-        "documentation": {}
-    },
-    {
-        "label": "GitHubAdapter",
-        "kind": 6,
-        "importPath": "fix_github_adapter",
-        "description": "fix_github_adapter",
-        "peekOfCode": "class GitHubAdapter(GitHubClientPort):\n    BASE_URL = \"https://api.github.com\"\n    MAX_PER_PAGE = 100\n    def __init__(self, token: str):\n        self.token = token\n        self.session = requests.Session()\n        self.session.headers.update({\n            \"Authorization\": f\"token {token}\",\n            \"Accept\": \"application/vnd.github.v3+json\",\n            \"X-GitHub-Api-Version\": \"2022-11-28\"",
-        "detail": "fix_github_adapter",
         "documentation": {}
     },
     {
