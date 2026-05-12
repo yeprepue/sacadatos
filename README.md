@@ -204,18 +204,18 @@ start-airflow-admin.bat
 
 ```bash
 cd docker
-docker-compose -f docker-compose-airflow.yml up -d
-docker-compose -f docker-compose-airflow.yml ps
+docker-compose -f docker-compose-airflow-simple-simple.yml up -d
+docker-compose -f docker-compose-airflow-simple-simple.yml ps
 ```
 
 ### Manual (Todos los SO)
 
 ```bash
 cd docker
-docker-compose -f docker-compose-airflow.yml down -v
-docker-compose -f docker-compose-airflow.yml up -d
+docker-compose -f docker-compose-airflow-simple-simple.yml down -v
+docker-compose -f docker-compose-airflow-simple-simple.yml up -d
 sleep 30
-docker-compose -f docker-compose-airflow.yml ps
+docker-compose -f docker-compose-airflow-simple-simple.yml ps
 ```
 
 ---
@@ -232,11 +232,11 @@ docker-compose -f docker-compose-airflow.yml ps
 ### Ejecutar DAG manualmente
 
 ```bash
-docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags unpause github_pipeline_v2
+docker-compose -f docker-compose-airflow-simple-simple.yml exec -T airflow-webserver   airflow dags unpause github_pipeline_v2
 
-docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags trigger github_pipeline_v2
+docker-compose -f docker-compose-airflow-simple-simple.yml exec -T airflow-webserver   airflow dags trigger github_pipeline_v2
 
-docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags list-runs -d github_pipeline_v2
+docker-compose -f docker-compose-airflow-simple-simple.yml exec -T airflow-webserver   airflow dags list-runs -d github_pipeline_v2
 ```
 
 ---
@@ -247,12 +247,12 @@ docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow
 
 | Acción | Comando |
 |------|------|
-| Levantar Airflow | `docker-compose -f docker-compose-airflow.yml up -d` |
-| Detener Airflow | `docker-compose -f docker-compose-airflow.yml down` |
-| Limpiar volúmenes | `docker-compose -f docker-compose-airflow.yml down -v` |
-| Reiniciar | `docker-compose -f docker-compose-airflow.yml restart` |
-| Ver estado | `docker-compose -f docker-compose-airflow.yml ps` |
-| Ver logs | `docker-compose -f docker-compose-airflow.yml logs -f` |
+| Levantar Airflow | `docker-compose -f docker-compose-airflow-simple-simple.yml up -d` |
+| Detener Airflow | `docker-compose -f docker-compose-airflow-simple-simple.yml down` |
+| Limpiar volúmenes | `docker-compose -f docker-compose-airflow-simple-simple.yml down -v` |
+| Reiniciar | `docker-compose -f docker-compose-airflow-simple-simple.yml restart` |
+| Ver estado | `docker-compose -f docker-compose-airflow-simple-simple.yml ps` |
+| Ver logs | `docker-compose -f docker-compose-airflow-simple-simple.yml logs -f` |
 
 ### Gestión de DAGs
 
@@ -271,16 +271,16 @@ docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow
 ### Scheduler no está corriendo
 
 ```bash
-docker-compose -f docker-compose-airflow.yml restart airflow-scheduler
-docker-compose -f docker-compose-airflow.yml logs -f airflow-scheduler
+docker-compose -f docker-compose-airflow-simple-simple.yml restart airflow-scheduler
+docker-compose -f docker-compose-airflow-simple-simple.yml logs -f airflow-scheduler
 ```
 
 ### DAG no aparece en la UI
 
 ```bash
 ls -la dags/github_pipeline_dag.py
-docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags list-import-errors
-docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags reserialize
+docker-compose -f docker-compose-airflow-simple-simple.yml exec -T airflow-webserver   airflow dags list-import-errors
+docker-compose -f docker-compose-airflow-simple-simple.yml exec -T airflow-webserver   airflow dags reserialize
 ```
 
 ### Puertos ocupados
@@ -351,7 +351,7 @@ CSV Report (reports/reporte_github.csv)
 ## 🆘 Soporte
 
 ```bash
-docker-compose -f docker-compose-airflow.yml logs -f
-docker-compose -f docker-compose-airflow.yml ps
-docker-compose -f docker-compose-airflow.yml down -v && docker-compose -f docker-compose-airflow.yml up -d
+docker-compose -f docker-compose-airflow-simple-simple.yml logs -f
+docker-compose -f docker-compose-airflow-simple-simple.yml ps
+docker-compose -f docker-compose-airflow-simple-simple.yml down -v && docker-compose -f docker-compose-airflow-simple-simple.yml up -d
 ```
