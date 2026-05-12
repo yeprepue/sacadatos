@@ -104,6 +104,48 @@ SACADATOS/
 ```
 
 ---
+## 🏗️ Arquitectura del Proyecto
+
+* El proyecto sigue el patrón de Clean Architecture, garantizando:
+
+- ✅ Separación clara de responsabilidades.
+- ✅ Bajo acoplamiento entre capas.
+- ✅ Alta mantenibilidad.
+- ✅ Facilidad para realizar pruebas unitarias.
+- ✅ Escalabilidad para nuevas fuentes de datos.
+- 📌 Capas de la Arquitectura
+- 🧠 Domain
+
+- Contiene las entidades del negocio y las interfaces (ports).
+
+- Models: Commit, Issue, Repository
+- Ports: contratos para GitHub, Base de Datos y Google Drive
+- Services: lógica de orquestación del pipeline
+### ⚙️ Application
+
+Contiene los casos de uso.
+
+ExtractGithubDataUseCase
+GenerateReportUseCase
+#### 🔌 Infrastructure
+
+Implementa los contratos definidos en Domain.
+
+Adaptadores para GitHub API
+Adaptadores para PostgreSQL
+Adaptadores para Google Drive
+Repositorios especializados
+#### 🛠️ Config
+
+Configuración del sistema y logging.
+
+#### 📊 Reports
+
+Salida de los archivos CSV generados.
+
+#### 🚀 Main
+
+Punto de entrada del sistema.
 
 ## ⚙️ Configuración Inicial
 
