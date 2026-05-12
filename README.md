@@ -168,11 +168,11 @@ Contenido mínimo del archivo `.env`:
 GITHUB_TOKEN=ghp_tu_token_real_aqui
 GOOGLE_DRIVE_CONFIG_FILE_ID=tu_config_id
 GOOGLE_DRIVE_FOLDER_ID=tu_folder_id
-POSTGRES_HOST=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=admin
-POSTGRES_DB=sacadatos
-LOG_LEVEL=INFO
+POSTGRES_HOST=xxx
+POSTGRES_USER=xx
+POSTGRES_PASSWORD=xxx
+POSTGRES_DB=xxxxx
+LOG_LEVEL=xxxx
 ```
 
 ---
