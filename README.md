@@ -1,177 +1,293 @@
-# GitHub Data Pipeline
+# 📦 Manual de Despliegue - SACADATOS v1.0
 
-Pipeline automatizado de extracción de datos de repositorios GitHub con arquitectura hexagonal.
+**Pipeline de extracción de datos de GitHub orquestado con Apache Airflow**
 
-## 📋 Descripción
+---
 
-Pipeline ETL que extrae issues y commits de repositorios de GitHub, los almacena en PostgreSQL y genera reportes.
+## 📋 Tabla de Contenidos
 
-## 🏗️ Arquitectura
+1. Requisitos Previos
+2. Estructura del Proyecto
+3. Configuración Inicial
+4. Despliegue con Docker (Pipeline Base)
+5. Despliegue con Airflow (Orquestación)
+6. Verificación y Pruebas
+7. Comandos Útiles
+8. Solución de Problemas
+9. Arquitectura
+10. Variables de Entorno
 
-```txt
-┌─────────────────────────────────────────────────────────────┐
-│ PRESENTATION LAYER │ │ (main.py)                            │
-└─────────────────────────────────────────────────────────────┘
-│ ▼
-┌─────────────────────────────────────────────────────────────┐
-│ APPLICATION LAYER                                           │
-│ (Use Cases: Extract, Generate Report)                       │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-│ ▼
-┌─────────────────────────────────────────────────────────────┐
-│ DOMAIN LAYER                                                │
-│ (Models: Repository, Issue, Commit)                         │
-│ (Ports: GitHubClient, Database, Drive)                      │
-│ (Services: PipelineService)                                 │ 
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-│ ▼
-┌─────────────────────────────────────────────────────────────┐
-│ INFRASTRUCTURE LAYER                                        │
-│ (Adapters: GitHub, Database, Drive)                         │
-│ (Repositories: Issue, Commit, Repository)                   │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+---
+
+## ✅ Requisitos Previos
+
+### Hardware Mínimo
+- **CPU:** 2 núcleos
+- **RAM:** 4 GB
+- **Disco:** 10 GB libres
+
+### Software Necesario
+
+| Software | Versión |
+|---------|---------|
+| Docker | 24.0+ |
+| Docker Compose | 2.20+ |
+| Git | 2.40+ |
+| Navegador | Chrome / Firefox / Edge |
+
+### Windows
+- Ejecutar la terminal como **Administrador**
+- Tener Docker Desktop instalado y en ejecución
+
+### Linux
+```bash
+sudo apt update
+sudo apt install docker.io docker-compose git -y
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
 ```
 
-## 📦 Tecnologías
-
-| Componente | Tecnología |
-|------------|-----------|
-| Lenguaje | Python 3.11+ |
-| ORM | SQLModel |
-| Base de datos | PostgreSQL |
-| API Externa | GitHub REST API |
-| Cloud Storage | Google Drive API |
-| Orquestación | Apache Airflow |
-| Contenedores | Docker |
+---
 
 ## 📁 Estructura del Proyecto
 
-```txt
-. ├── main.py # Punto de entrada
-  ├── config.json # Configuración de repositorios
-  ├── .env # Variables de entorno
-  ├── src/
-  │├── config/ # Configuración │
-  │ ├── settings.py │ │
-  └── logging_config.py
-  │ ├── domain/ # Capa de dominio
-  │ │ ├── models/ # Entidades
-  │ │ ├── ports/ # Interfaces
-  │ │ └── services/ # Lógica de negocio
-  │ ├── infrastructure/ # Capa de infraestructura
-  │ │ ├── adapters/ # Implementaciones externas
-  │ │ └── repositories/ # Acceso a datos
-  │ └── application/ # Casos de uso
-  │ └── use_cases/ ├── docker/
-  │ ├── Dockerfile
-  │ └── requirements.txt
-  └── dags/
-  └── github_pipeline.py
+```text
+sacadatos/
+├── dags/
+│   └── github_pipeline_dag.py
+├── docker/
+│   ├── docker-compose.yml
+│   ├── docker-compose-airflow.yml
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── requirements-airflow.txt
+├── src/
+│   ├── application/
+│   │   └── use_cases/
+│   │       ├── extract_github_data.py
+│   │       └── generate_report.py
+│   ├── domain/
+│   ├── infrastructure/
+│   │   └── adapters/
+│   │       └── database_adapters.py
+│   └── config/
+│       └── settings.py
+├── logs/
+├── reports/
+├── .env
+├── .env.example
+├── .gitignore
+├── main.py
+└── start-airflow-admin.bat
 ```
 
+---
 
-## 🚀 Instalación
+## ⚙️ Configuración Inicial
 
-### 1. Clonar repositorio
+### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/yeprepue/sacadatos.git
+git clone https://github.com/tu-usuario/sacadatos.git
 cd sacadatos
 ```
+
 ### 2. Configurar variables de entorno
-Crear archivo .env:
-```txt
-GITHUB_TOKEN=ghp_tu_token_aqui
-POSTGRES_HOST=localhost
+
+```bash
+cp .env.example .env
+```
+
+Contenido mínimo del archivo `.env`:
+
+```env
+GITHUB_TOKEN=ghp_tu_token_real_aqui
+GOOGLE_DRIVE_CONFIG_FILE_ID=tu_config_id
+GOOGLE_DRIVE_FOLDER_ID=tu_folder_id
+POSTGRES_HOST=postgres
 POSTGRES_USER=postgres
-POSTGRES_PASSWORD=tu_password
+POSTGRES_PASSWORD=admin
 POSTGRES_DB=sacadatos
 LOG_LEVEL=INFO
+```
 
-```
-### 3. Instalar dependencias
-```bash
-pip install -r docker/requirements.txt
-```
-### 4. Configurar PostgreSQL
-```bash
-psql -U postgres -c "CREATE DATABASE sacadatos;"
-```
-### 5. Configurar Google Drive (opcional)
-* Crear proyecto en Google Cloud Console
-* Habilitar Google Drive API
-* Descargar credentials.json
-* Compartir carpeta con Service Account
+---
 
-####⚙️ Configuración
-Editar config.json para especificar repositorios:
-```bash
-{
-  "repositories": [
-    {"owner": "pandas-dev", "name": "pandas"},
-    {"owner": "microsoft", "name": "vscode"}
-  ],
-  "last_extraction": null
-}
-```
-### ▶️ Uso
-Ejecución local
-```bash
-python main.py
-```
-📊 Base de Datos
-Esquema
-```sql
--- Repositorios
-CREATE TABLE repositories (
-    id SERIAL PRIMARY KEY,
-    owner VARCHAR(255) NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    UNIQUE(owner, name)
-);
+## 🐳 Despliegue con Docker (Pipeline Base)
 
--- Issues
-CREATE TABLE issues (
-    id BIGINT PRIMARY KEY,
-    repo_id INTEGER REFERENCES repositories(id),
-    number INTEGER,
-    title TEXT,
-    state VARCHAR(50),
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP,
-    closed_at TIMESTAMP,
-    user_login VARCHAR(255),
-    extraction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Commits
-CREATE TABLE commits (
-    sha VARCHAR(40) PRIMARY KEY,
-    repo_id INTEGER REFERENCES repositories(id),
-    message TEXT,
-    author_login VARCHAR(255),
-    author_date TIMESTAMP,
-    extraction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-## 🔧 Desarrollo
-Con Docker
 ```bash
-# Construir imagen
+cd docker
 docker-compose build
-
-# Ejecutar
-docker-compose up extractor
-
+docker-compose up -d
+docker-compose ps
+docker-compose exec extractor python main.py
+docker cp github_extractor:/app/reporte_github.csv ../reports/
+docker-compose down
 ```
 
+---
 
-## 📝 Licencia
-MIT License
+## 🚀 Despliegue con Airflow (Orquestación)
 
-## 👤 Autor
-Nombre: Yeison Esteban Pretel Puentes
-GitHub: https://github.com/yeprepue
+### Windows
+
+```bat
+cd C:\ruta\a\sacadatos
+start-airflow-admin.bat
+```
+
+### Linux / macOS
+
+```bash
+cd docker
+docker-compose -f docker-compose-airflow.yml up -d
+docker-compose -f docker-compose-airflow.yml ps
+```
+
+### Manual (Todos los SO)
+
+```bash
+cd docker
+docker-compose -f docker-compose-airflow.yml down -v
+docker-compose -f docker-compose-airflow.yml up -d
+sleep 30
+docker-compose -f docker-compose-airflow.yml ps
+```
+
+---
+
+## ✅ Verificación y Pruebas
+
+### Interfaces Web
+
+| Interfaz | URL | Credenciales |
+|--------|-----|-------------|
+| Airflow UI | http://localhost:8080 | airflow / airflow |
+| Flower | http://localhost:5555 | No requiere |
+
+### Ejecutar DAG manualmente
+
+```bash
+docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags unpause github_pipeline_v2
+
+docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags trigger github_pipeline_v2
+
+docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags list-runs -d github_pipeline_v2
+```
+
+---
+
+## 🛠️ Comandos Útiles
+
+### Gestión de Servicios
+
+| Acción | Comando |
+|------|------|
+| Levantar Airflow | `docker-compose -f docker-compose-airflow.yml up -d` |
+| Detener Airflow | `docker-compose -f docker-compose-airflow.yml down` |
+| Limpiar volúmenes | `docker-compose -f docker-compose-airflow.yml down -v` |
+| Reiniciar | `docker-compose -f docker-compose-airflow.yml restart` |
+| Ver estado | `docker-compose -f docker-compose-airflow.yml ps` |
+| Ver logs | `docker-compose -f docker-compose-airflow.yml logs -f` |
+
+### Gestión de DAGs
+
+| Acción | Comando |
+|------|------|
+| Listar DAGs | `airflow dags list` |
+| Pausar DAG | `airflow dags pause github_pipeline_v2` |
+| Reanudar DAG | `airflow dags unpause github_pipeline_v2` |
+| Ejecutar manualmente | `airflow dags trigger github_pipeline_v2` |
+| Ver ejecuciones | `airflow dags list-runs -d github_pipeline_v2` |
+
+---
+
+## 🐛 Solución de Problemas
+
+### Scheduler no está corriendo
+
+```bash
+docker-compose -f docker-compose-airflow.yml restart airflow-scheduler
+docker-compose -f docker-compose-airflow.yml logs -f airflow-scheduler
+```
+
+### DAG no aparece en la UI
+
+```bash
+ls -la dags/github_pipeline_dag.py
+docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags list-import-errors
+docker-compose -f docker-compose-airflow.yml exec -T airflow-webserver   airflow dags reserialize
+```
+
+### Puertos ocupados
+
+Verifica que los puertos `8080`, `5433`, `5555` y `6380` estén libres.
+
+---
+
+## 📐 Arquitectura
+
+```text
+Google Drive (configuración)
+        │
+        ▼
+Airflow Scheduler (2:00 AM UTC)
+        │
+        ▼
+Docker Extractor Container
+        │
+        ├──► GitHub API
+        │
+        ▼
+PostgreSQL (datos crudos)
+        │
+        ▼
+Transformaciones SQL
+        │
+        ▼
+GenerateReportUseCase (pandas)
+        │
+        ▼
+CSV Report (reports/reporte_github.csv)
+```
+
+---
+
+## 🔧 Variables de Entorno
+
+### Obligatorias
+
+| Variable | Descripción |
+|--------|-------------|
+| GITHUB_TOKEN | Token de acceso a GitHub API |
+| POSTGRES_HOST | Host de PostgreSQL |
+| POSTGRES_USER | Usuario de PostgreSQL |
+| POSTGRES_PASSWORD | Contraseña |
+| POSTGRES_DB | Nombre de la base de datos |
+
+### Opcionales
+
+| Variable | Descripción |
+|--------|-------------|
+| GOOGLE_DRIVE_CONFIG_FILE_ID | ID del archivo de configuración |
+| GOOGLE_DRIVE_FOLDER_ID | ID de la carpeta de destino |
+| LOG_LEVEL | Nivel de logging |
+
+---
+
+## 📝 Notas Importantes
+
+- Nunca subas `.env` ni `credentials.json` a Git.
+- En Windows, ejecuta siempre la terminal como administrador.
+- Airflow requiere al menos 4 GB de RAM disponibles.
+- El primer inicio puede tardar entre 30 y 60 segundos.
+
+---
+
+## 🆘 Soporte
+
+```bash
+docker-compose -f docker-compose-airflow.yml logs -f
+docker-compose -f docker-compose-airflow.yml ps
+docker-compose -f docker-compose-airflow.yml down -v && docker-compose -f docker-compose-airflow.yml up -d
+```
