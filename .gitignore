@@ -52,6 +52,7 @@ Thumbs.db
 
 # Docker
 docker-compose.override.yml
+docker/docker-compose.yml
 
 # Airflow
 airflow.cfg
