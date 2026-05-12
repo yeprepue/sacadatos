@@ -52,33 +52,55 @@ sudo usermod -aG docker $USER
 ## 📁 Estructura del Proyecto
 
 ```text
-sacadatos/
-├── dags/
-│   └── github_pipeline_dag.py
-├── docker/
-│   ├── docker-compose.yml
-│   ├── docker-compose-airflow.yml
-│   ├── Dockerfile
-│   ├── requirements.txt
-│   └── requirements-airflow.txt
+SACADATOS/
+├── reports/                          # Reportes CSV generados
+│   └── reporte_github.csv
+│
 ├── src/
-│   ├── application/
+│   ├── application/                  # Casos de uso (lógica de negocio)
 │   │   └── use_cases/
 │   │       ├── extract_github_data.py
 │   │       └── generate_report.py
-│   ├── domain/
-│   ├── infrastructure/
-│   │   └── adapters/
-│   │       └── database_adapters.py
-│   └── config/
-│       └── settings.py
-├── logs/
-├── reports/
-├── .env
-├── .env.example
+│   │
+│   ├── config/                       # Configuración global
+│   │   ├── logging_config.py
+│   │   └── settings.py
+│   │
+│   ├── domain/                       # Núcleo del dominio
+│   │   ├── models/
+│   │   │   ├── commit.py
+│   │   │   ├── issue.py
+│   │   │   └── repository.py
+│   │   │
+│   │   ├── ports/                    # Interfaces (contratos)
+│   │   │   ├── database.py
+│   │   │   ├── drive_client.py
+│   │   │   └── github_client.py
+│   │   │
+│   │   └── services/
+│   │       └── pipeline_service.py
+│   │
+│   ├── infrastructure/               # Implementaciones concretas
+│   │   ├── adapters/
+│   │   │   ├── database_adapter.py
+│   │   │   ├── drive_adapter.py
+│   │   │   └── github_adapter.py
+│   │   │
+│   │   ├── repositories/
+│   │   │   ├── commit_repo.py
+│   │   │   ├── issue_repo.py
+│   │   │   └── repository_repo.py
+│   │   │
+│   │   └── database.py
+│   │
+│   └── tests/                        # Pruebas unitarias
+│
+├── .env                              # Variables de entorno
 ├── .gitignore
-├── main.py
-└── start-airflow-admin.bat
+├── main.py                           # Punto de entrada principal
+├── reporte-github.csv                # Reporte generado
+├── start-airflow-admin.bat           # Inicio automático en Windows
+└── test_imports.py                   # Validación de imports
 ```
 
 ---
